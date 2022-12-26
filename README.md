@@ -30,10 +30,8 @@ pip install openai
 ```
 ## Editing the path of config.json and checkpoint.pth in inference_api.py
 ```sh
-pip install pydub 
-pip install openai
-#Not recommended due to demanding requirements
-#pip install pyChatGPT
+line34:hps_ms = utils.get_hparams_from_file("path/to/config.json")
+line43:_ = utils.load_checkpoint("path/to/checkpoint.pth", net_g_ms, None)
 ```
 
 
