@@ -3,7 +3,7 @@
 项目地址https://drive.google.com/drive/folders/1vtootVMQ7wTOQwd15nJe6akzJUYNOw4d
 解压live2d_chat-0.6(gpt3+chatgpt).zip，
 运行游戏程序，
-你也可以用renpy修改游戏程序，自定义你的live2d模型和交互方式。
+建议用renpy修改游戏程序，内置配置流程，自定义你的live2d模型和交互方式。
 
 ## How to launch API in your windows or server
 (Suggestion) Python == 3.7
