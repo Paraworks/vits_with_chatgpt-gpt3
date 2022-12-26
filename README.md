@@ -1,4 +1,4 @@
-#这是一个焊接chatgpt/gpt3和vits的后端api程序
+# 这是一个焊接chatgpt/gpt3和vits的后端api程序
 **搭建流程
 **1.克隆一个vits库或iSTFT VITS库
 **2.搭建vits环境，准备好模型
