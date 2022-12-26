@@ -1,5 +1,6 @@
 # 这是一个焊接chatgpt/gpt3和vits的后端api程序
 搭建流程
+克隆
 克隆一个vits库或iSTFT VITS库
 搭建vits环境，准备好模型
 把inference_api.py丢进去
