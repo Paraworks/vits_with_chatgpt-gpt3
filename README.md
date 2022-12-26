@@ -13,7 +13,10 @@
 git clone https://github.com/CjangCjengh/vits.git
 #git clone https://github.com/innnky/MB-iSTFT-VITS
 ```
-## Adding cleaners inference_api.py to your project
+## Adding cleaners&inference_api.py to your project
+- Noticing "text_cleaners" in config.json
+- Edit 'text'dictionary in the VITS or iSTFT-VITS
+- Remove unnecessary imports from text/cleaners.py
 - The path of inference_api.py should be like path/to/vits/inference_api.py
 - If you want to launch this project in your server, it is recommanded to use iSTFT-VITS for tts: path/to/MB-iSTFT-VITS/inference_api.py
 ## Install requirements of vits enviornments
@@ -21,6 +24,15 @@ git clone https://github.com/CjangCjengh/vits.git
 cd vits
 #cd MB-iSTFT-VITS
 pip install -r requirements.txt
+```
+## Build Monotonic Alignment Search and run preprocessing
+```sh
+# Cython-version Monotonoic Alignment Search
+cd monotonic_align
+mkdir monotonic_align
+python setup.py build_ext --inplace
+cd vits
+#cd MB-iSTFT-VITS
 ```
 ## Install requirements for using GPT3/CHATGPT in python
 ```sh
