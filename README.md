@@ -13,3 +13,80 @@
 解压live2d_chat-0.6(gpt3+chatgpt).zip
 运行游戏程序
 你也可以用renpy修改游戏程序，自定义你的live2d模型和交互方式。
+
+# How to use
+(Suggestion) Python == 3.7
+## Clone a VITS repository or iSTFT-VITS repository
+```sh
+git clone https://github.com/CjangCjengh/vits.git
+#git clone https://github.com/innnky/MB-iSTFT-VITS
+```
+## Adding cleaners inference_api.py to your project
+- The path of inference_api.py should be like path/to/vits/inference_api.py
+- If you want to launch this project in your server, it is recommanded to use iSTFT-VITS for tts: path/to/MB-iSTFT-VITS/inference_api.py
+## Install requirements of vits enviornments
+```sh
+cd vits
+#cd MB-iSTFT-VITS
+pip install -r requirements.txt
+```
+## Install requirements for using GPT3/CHATGPT in python
+```sh
+pip install pydub 
+pip install openai
+#Not recommended due to demanding requirements
+#pip install pyChatGPT
+```
+## Editing 
+### Single speaker
+"n_speakers" should be 0 in config.json
+```
+path/to/XXX.wav|transcript
+```
+- Example
+```
+dataset/001.wav|こんにちは。
+```
+### Mutiple speakers
+Speaker id should start from 0 
+```
+path/to/XXX.wav|speaker id|transcript
+```
+- Example
+```
+dataset/001.wav|0|こんにちは。
+```
+## Preprocess
+If you have done this, set "cleaned_text" to true in config.json
+```sh
+# Single speaker
+python preprocess.py --text_index 1 --filelists path/to/filelist_train.txt path/to/filelist_val.txt
+
+# Mutiple speakers
+python preprocess.py --text_index 2 --filelists path/to/filelist_train.txt path/to/filelist_val.txt
+```
+## Build monotonic alignment search
+```sh
+cd monotonic_align
+python setup.py build_ext --inplace
+cd ..
+```
+## Train
+```sh
+# Single speaker
+python train.py -c <config> -m <folder>
+
+# Mutiple speakers
+python train_ms.py -c <config> -m <folder>
+```
+## Inference
+### Online
+See [inference.ipynb](inference.ipynb)
+### Offline
+See [MoeGoe](https://github.com/CjangCjengh/MoeGoe)
+
+# Running in Docker
+
+```sh
+docker run -itd --gpus all --name "Container name" -e NVIDIA_DRIVER_CAPABILITIES=compute,utility -e NVIDIA_VISIBLE_DEVICES=all "Image name"
+```
