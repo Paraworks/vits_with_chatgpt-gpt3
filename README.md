@@ -28,8 +28,10 @@ pip install openai
 #Not recommended due to demanding requirements
 #pip install pyChatGPT
 ```
-## Editing the path of config.json and checkpoint.pth in inference_api.py
+## Editing the path of configuration file in inference_api.py
 ```sh
+line26:#设定存储各种数据的目录，方便查看，默认C:/project_file
+line27:current_work_dir = os.path.dirname(__file__)
 line34:hps_ms = utils.get_hparams_from_file("path/to/config.json")
 line43:_ = utils.load_checkpoint("path/to/checkpoint.pth", net_g_ms, None)
 ```
