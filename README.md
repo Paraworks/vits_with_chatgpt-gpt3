@@ -18,6 +18,7 @@ label start:
 #导入需要的库
     $ import requests
     $ import os
+    $ import threading 
 #这些参数是我认为适合在应用端设定的
 #spk_id是vits模型中的人物id，vits多人模型通过变化spk_id来修改说话人
     $ global spk_id
@@ -36,6 +37,7 @@ label start:
 return
 
 label setting0:
+#renpy需要在python命令中用renpy.input获取文本输入，这样就可以修改参数了。调试后可以将这些参数存储在游戏文件中。
     $ web_base = renpy.input("输入后端api的地址，如本地推理为'http://127.0.0.1:8080'，终端运行inference_api.py时查看",length=100)
     $ open_api_key = renpy.input("填写你的API keys 网址：https://beta.openai.com/account/api-keys",length=1000)
     $ open_api_key = str(open_api_key)
@@ -44,13 +46,46 @@ label setting0:
     $ noise_scale_w = renpy.input('填写噪声参数偏差，默认输入0.8',length=10)
     $ noise_scale_0 = renpy.input('语速设置，默认1',length=10)
     $ spk_id = int(renpy.input("对话角色",length=10))
-    #    open_api_path = open_api_path.replace("\\","/").replace(,"/")
-    #    with open(open_api_path, "r", encoding="utf-8") as f1:
-    #        open_api_key = f1.read()
+#renshe这个玩意是用来和gpt3对话用的，实际上有些多余了，chatgpt则完全不需要，直接空输入也行
     $ renshe =  renpy.input("写上人设",length=200)    
     $ web = web_base + "/identity?text=" + renshe + "&mapping=" + str(your_name)
     $ renshe = requests.get(web).text
     jump sense1
 
+label sense1:
+#获取当前项目所在路径，创建存储音频文件的路径
+    $ current_work_dir = os.path.dirname(__file__)
+    $ weight_path = os.path.join(current_work_dir, 'temp.ogg')
+    $ weight_path = weight_path.replace("\\","/")
+#交互的第一步
+    $ your_text = renpy.input('',length=60)
+#合成网址用来发送请求(本来只有需传入文本就行了，后来参数越传越多)
+    $ webs = web_base + "/gpt?text="+ your_text  + "&speakers_name=" + str(spk_id) +"&api_key=" + str(open_api_key) + "&mapping=" + str(your_name) + "&noise_scale=" + str(noise_scale) + "&noise_scale_w=" + str(noise_scale_w) + "&spd=" + str(noise_scale_0)
+#这就是另外一种插入python指令的方法了，用treading实现同步运行
+    python:
+        def get_voice():
+            res = requests.get(webs)
+            music = res.content
+            with open(weight_path, 'wb') as code:
+                code.write(music)
+            web2 = web_base + "/word?mapping=" + your_name
+            answer = requests.get(web2).text
+            global answer
+#            os.system(weight_path)
+        thread = threading.Thread(target=get_voice)
+        thread.start()
+#这是选择界面，决定是否要remake
+menu:
+    "查看回复":
+        jump reply
+    "重新设定":
+        jump setting0
+#最后的展示阶段，可以自己添加动作，这里选择用voice播放声音而不是简单粗暴的os
+label reply:
+    show Character1 motion2
+    voice weight_path
+    Setsuna '[answer]'
+    show Character1 motion2
+    jump sense1
 
 ```
