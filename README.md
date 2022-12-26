@@ -1,18 +1,18 @@
-这是一个焊接chatgpt/gpt3和vits的后端api程序
-搭建流程
-1.克隆一个vits库或iSTFT VITS库
-2.搭建vits环境，准备好模型
-3.把inference_api.py丢进去
-4.按照inference_api.py内指示创建用于保存生成的各种文件的文件夹
-5.$pip install openai pyChatGPT openai
-6.修改inference_api中的模型路径和配置路径
-7.cd /path/to/vits
-8.python inference_api.py
-9.留意running on http://yourhost:8080 这是最基础的网址。
-最基础的前端应用项目地址https://drive.google.com/drive/folders/1vtootVMQ7wTOQwd15nJe6akzJUYNOw4d
-解压live2d_chat-0.6(gpt3+chatgpt).zip
-运行游戏程序
-你也可以用renpy修改游戏程序，自定义你的live2d模型和交互方式。
+#这是一个焊接chatgpt/gpt3和vits的后端api程序
+#搭建流程
+#1.克隆一个vits库或iSTFT VITS库
+#2.搭建vits环境，准备好模型
+#3.把inference_api.py丢进去
+#4.按照inference_api.py内指示创建用于保存生成的各种文件的文件夹
+#5.$pip install openai pyChatGPT openai
+#6.修改inference_api中的模型路径和配置路径
+#7.cd /path/to/vits
+#8.python inference_api.py
+#9.留意running on http://yourhost:8080 这是最基础的网址。
+#最基础的前端应用项目地址https://drive.google.com/drive/folders/1vtootVMQ7wTOQwd15nJe6akzJUYNOw4d
+#解压live2d_chat-0.6(gpt3+chatgpt).zip
+#运行游戏程序
+#你也可以用renpy修改游戏程序，自定义你的live2d模型和交互方式。
 
 # How to use
 (Suggestion) Python == 3.7
@@ -38,55 +38,3 @@ pip install openai
 #pip install pyChatGPT
 ```
 ## Editing 
-### Single speaker
-"n_speakers" should be 0 in config.json
-```
-path/to/XXX.wav|transcript
-```
-- Example
-```
-dataset/001.wav|こんにちは。
-```
-### Mutiple speakers
-Speaker id should start from 0 
-```
-path/to/XXX.wav|speaker id|transcript
-```
-- Example
-```
-dataset/001.wav|0|こんにちは。
-```
-## Preprocess
-If you have done this, set "cleaned_text" to true in config.json
-```sh
-# Single speaker
-python preprocess.py --text_index 1 --filelists path/to/filelist_train.txt path/to/filelist_val.txt
-
-# Mutiple speakers
-python preprocess.py --text_index 2 --filelists path/to/filelist_train.txt path/to/filelist_val.txt
-```
-## Build monotonic alignment search
-```sh
-cd monotonic_align
-python setup.py build_ext --inplace
-cd ..
-```
-## Train
-```sh
-# Single speaker
-python train.py -c <config> -m <folder>
-
-# Mutiple speakers
-python train_ms.py -c <config> -m <folder>
-```
-## Inference
-### Online
-See [inference.ipynb](inference.ipynb)
-### Offline
-See [MoeGoe](https://github.com/CjangCjengh/MoeGoe)
-
-# Running in Docker
-
-```sh
-docker run -itd --gpus all --name "Container name" -e NVIDIA_DRIVER_CAPABILITIES=compute,utility -e NVIDIA_VISIBLE_DEVICES=all "Image name"
-```
