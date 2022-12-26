@@ -1,9 +1,8 @@
 # 这是一个焊接chatgpt/gpt3和vits的后端api程序
-搭建流程
-留意running on http://yourhost:8080 这是最基础的网址。
-最基础的前端应用项目地址https://drive.google.com/drive/folders/1vtootVMQ7wTOQwd15nJe6akzJUYNOw4d
-解压live2d_chat-0.6(gpt3+chatgpt).zip
-运行游戏程序
+参考用链接http://43.159.36.6:8080/
+项目地址https://drive.google.com/drive/folders/1vtootVMQ7wTOQwd15nJe6akzJUYNOw4d
+解压live2d_chat-0.6(gpt3+chatgpt).zip，
+运行游戏程序，
 你也可以用renpy修改游戏程序，自定义你的live2d模型和交互方式。
 
 ## How to use
