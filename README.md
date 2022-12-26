@@ -36,7 +36,7 @@ line28:weight_path = os.path.join(current_work_dir, '/project_file/')
 line34:hps_ms = utils.get_hparams_from_file("path/to/config.json")
 line43:_ = utils.load_checkpoint("path/to/checkpoint.pth", net_g_ms, None)
 ```
-## for cpu inference in server or those who do not have cuda installed
+## For CPU inference in server or those who do not have cuda installed
 ```sh
 #change this line
 line32:dev = torch.device("cuda:0")
@@ -47,6 +47,18 @@ line32:dev = torch.device("cuda:0")
 python inference_api.py
 ```
 
+## What to do next?
+As you can see in the temminal
+```sh
+ * Serving Flask app 'inference_api'
+ * Debug mode: on
+INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://10.0.0.14:8080
+INFO:werkzeug:[33mPress CTRL+C to quit[0m
+```
+Which means you can try it in the game now
 
 
 
