@@ -41,12 +41,10 @@ line43:_ = utils.load_checkpoint("path/to/checkpoint.pth", net_g_ms, None)
 #change this line to dev = torch.device("cpu")
 line32:dev = torch.device("cuda:0")
 ```
-
 ## launch
 ```sh
 python inference_api.py
 ```
-
 ## What to do next?
 As you can see in the temminal
 ```sh
@@ -59,7 +57,6 @@ INFO:werkzeug: WARNING: This is a development server. Do not use it in a product
 INFO:werkzeug: Press CTRL+C to quit
 ```
 Which means you can try it in the game now
-
 ## Why using api?
 不会真有人想每次都要启动一堆程序，配置个半天，吃电脑一大半内存和显存来跟纸片人聊天吧，反正我调试完之后肯定不会，20块一个月的服务器不香吗？
 ## Why not chatgpt?
@@ -70,8 +67,7 @@ line144:#session_token = '参考https://www.youtube.com/watch?v=TdNSj_qgdFk'
 line145:#api = ChatGPT(session_token)
 #Delate the comment in line200 and line233
 ```
-Actually if you want to chat with it indiscriminately as if it is your waifu, company will stop you lol.
-
-##What to do with game?
+If you want to chat with it indiscriminately as if it is your waifu, the company will stop you lol.
+## What to do with game?
 Official website of RenPy https://www.renpy.org/
-You can follow the instructions and beautify your game, you can take my game given as reference.
+You can follow the instructions and beautify your game, can take my game given as a reference.
