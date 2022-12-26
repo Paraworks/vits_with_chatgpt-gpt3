@@ -36,10 +36,18 @@ line28:weight_path = os.path.join(current_work_dir, '/project_file/')
 line34:hps_ms = utils.get_hparams_from_file("path/to/config.json")
 line43:_ = utils.load_checkpoint("path/to/checkpoint.pth", net_g_ms, None)
 ```
+## for cpu inference in server or those who do not have cuda installed
+```sh
+#change this line
+line32:dev = torch.device("cuda:0")
+```
+
 ## launch
 ```sh
 python inference_api.py
 ```
+
+
 
 
 
