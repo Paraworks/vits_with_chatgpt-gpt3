@@ -52,14 +52,13 @@ As you can see in the temminal
 ```sh
  * Serving Flask app 'inference_api'
  * Debug mode: on
-INFO:werkzeug:[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+INFO:werkzeug: WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
  * Running on all addresses (0.0.0.0)
  * Running on http://127.0.0.1:8080
  * Running on http://10.0.0.14:8080
-INFO:werkzeug:[33mPress CTRL+C to quit[0m
+INFO:werkzeug: Press CTRL+C to quit
 ```
 Which means you can try it in the game now
-
 
 
 
