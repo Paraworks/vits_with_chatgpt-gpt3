@@ -1,14 +1,5 @@
 # 这是一个焊接chatgpt/gpt3和vits的后端api程序
 搭建流程
-克隆
-克隆一个vits库或iSTFT VITS库
-搭建vits环境，准备好模型
-把inference_api.py丢进去
-按照inference_api.py内指示创建用于保存生成的各种文件的文件夹
-pip install openai pyChatGPT pydub
-修改inference_api中的模型路径和配置路径
-cd /path/to/vits
-python inference_api.py
 留意running on http://yourhost:8080 这是最基础的网址。
 最基础的前端应用项目地址https://drive.google.com/drive/folders/1vtootVMQ7wTOQwd15nJe6akzJUYNOw4d
 解压live2d_chat-0.6(gpt3+chatgpt).zip
@@ -38,4 +29,13 @@ pip install openai
 #Not recommended due to demanding requirements
 #pip install pyChatGPT
 ```
-## Editing 
+## Editing the path of config.json and checkpoint.pth in inference_api.py
+```sh
+pip install pydub 
+pip install openai
+#Not recommended due to demanding requirements
+#pip install pyChatGPT
+```
+
+
+
