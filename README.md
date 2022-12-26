@@ -32,6 +32,7 @@ pip install openai
 ```sh
 line26:#设定存储各种数据的目录，方便查看，默认C:/project_file
 line27:current_work_dir = os.path.dirname(__file__)
+line28:weight_path = os.path.join(current_work_dir, '/project_file/')
 line34:hps_ms = utils.get_hparams_from_file("path/to/config.json")
 line43:_ = utils.load_checkpoint("path/to/checkpoint.pth", net_g_ms, None)
 ```
