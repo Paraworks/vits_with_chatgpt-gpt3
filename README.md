@@ -1,6 +1,8 @@
 # 这是一个焊接chatgpt/gpt3和vits的后端api程序
-**搭建流程
-**1.克隆一个vits库或iSTFT VITS库
+ 搭建流程
+ 
+ 
+1.克隆一个vits库或iSTFT VITS库
 **2.搭建vits环境，准备好模型
 **3.把inference_api.py丢进去
 **4.按照inference_api.py内指示创建用于保存生成的各种文件的文件夹
