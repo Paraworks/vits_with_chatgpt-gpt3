@@ -13,6 +13,8 @@
 git clone https://github.com/CjangCjengh/vits.git
 #git clone https://github.com/innnky/MB-iSTFT-VITS
 ```
+## Get the model and config
+- See https://github.com/CjangCjengh/TTSModels or other repositorise in Github or huggingface
 ## Adding cleaners&inference_api.py to your project
 - Noticing "text_cleaners" in config.json
 - Edit 'text'dictionary in the VITS or iSTFT-VITS
