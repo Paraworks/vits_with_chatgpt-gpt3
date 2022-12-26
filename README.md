@@ -1,4 +1,4 @@
-# 这是一个焊接chatgpt/gpt3和vits的后端api程序
+# 这是一个焊接chatgpt/gpt3和vits的后端api程序,前端只是附带的
 参考用链接http://43.159.36.6:8080/
 项目地址https://drive.google.com/drive/folders/1vtootVMQ7wTOQwd15nJe6akzJUYNOw4d
 解压live2d_chat-0.6(gpt3+chatgpt).zip，
@@ -6,7 +6,7 @@
 建议用renpy修改游戏程序，内置配置流程，自定义你的live2d模型和交互方式。
 
 ## How to launch API in your windows or server
-(Suggestion) Python == 3.7
+(Suggestion) Python == 3.8/3.7
 ## Clone a VITS repository or iSTFT-VITS repository
 ```sh
 git clone https://github.com/CjangCjengh/vits.git
@@ -59,6 +59,8 @@ INFO:werkzeug: Press CTRL+C to quit
 Which means you can try it in the game now
 ## Why using api?
 不会真有人想每次都要启动一堆程序，配置个半天，吃电脑一大半内存和显存来跟纸片人聊天吧，反正我调试完之后肯定不会，20块一个月的服务器不香吗？
+## Real usage for api
+Building chatroom on my website. Now preparing the live2d models.
 ## Why not chatgpt?
 You can edit it in the inference_api.py
 ```sh
