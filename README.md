@@ -1,5 +1,5 @@
 # 焊接chatgpt/gpt3和vits的后端api程序
-# Combining chatgpt&gpt3 on your server
+# Combining chatgpt/gpt3&vits on your server
 用api启动的目的是搭建lovelive的聊天网站,我自己写的renpy应用需要live2d模型。你还可以尝试诸如mmd模型，简单的图片等诸多方式。
 部署到服务器以后的标准网页格式,运用映射把你的api投到公网http://43.159.36.6:8080/
 应用地址https://drive.google.com/drive/folders/1vtootVMQ7wTOQwd15nJe6akzJUYNOw4d
