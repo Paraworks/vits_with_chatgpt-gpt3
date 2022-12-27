@@ -61,13 +61,12 @@ line32:dev = torch.device("cuda:0")
 ## If you want to chat directly with your waifu without any setting in your devices
 See https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/main/one_step.py
 ```sh
-
+cd MB-iSTFT-VITS
+python one_step.py
 ```
-
 ## launch
 ```sh
 python inference_api.py
-#python one_step.py
 ```
 ## What to do next?
 As you can see in the temminal
