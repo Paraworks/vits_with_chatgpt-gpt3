@@ -66,10 +66,10 @@ python one_step.py
 ```
 in /lightweight_chat-1.0-win/game/script.rpy
 ```sh
-#editing basic setting assuming the motion name of live 2d are idle main_1......
+#You can change live2d
 define nengdai = Character("Your character name")
 define config.gl2 = True
-image nengdai = Live2D("path/to/live2dModel", top=0.3, base=0.7, height=1,loop=True)
+image nengdai = Live2D("nengdai2", top=0.3, base=0.7, height=1,loop=True)
 label start:
     #加载live2d动作，参考https://www.renpy.cn/doc/live2d.html
     show nengdai idle
