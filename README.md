@@ -59,7 +59,7 @@ line43:_ = utils.load_checkpoint("path/to/checkpoint.pth", net_g_ms, None)
 line32:dev = torch.device("cuda:0")
 ```
 ## If you want to chat directly with your waifu without any setting in your devices
-Editing one_step.py
+See https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/main/one_step.py
 ```sh
 
 ```
