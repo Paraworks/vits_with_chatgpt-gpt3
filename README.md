@@ -86,6 +86,7 @@ label sense1:
     $ weight_path = os.path.join(current_work_dir, 'temp.ogg')
     $ weight_path = weight_path.replace("\\","/")
     $ your_text = renpy.input('',length=60)
+#Change website to voice
     $ webs = "http://127.0.0.1:8080/gpt?text=" + your_text
     python:
         def get_voice():
@@ -93,7 +94,7 @@ label sense1:
             music = res.content
             with open(weight_path, 'wb') as code:
                 code.write(music)
-#Change your own website here
+#Change website to texture
             response = requests.get("http://127.0.0.1:8080/word").text
             global response
         thread = threading.Thread(target=get_voice)
