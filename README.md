@@ -61,6 +61,7 @@ line32:dev = torch.device("cuda:0")
 ## launch
 ```sh
 python inference_api.py
+#python one_step.py
 ```
 ## What to do next?
 As you can see in the temminal
