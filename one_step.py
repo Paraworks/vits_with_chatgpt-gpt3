@@ -18,7 +18,7 @@ def get_text(text, hps):
         text_norm = commons.intersperse(text_norm, 0)
     text_norm = torch.LongTensor(text_norm)
     return text_norm
-hps = utils.get_hparams_from_file("C:/Users/24293/Desktop/model/ljs_mb_istft_vits.json")
+hps = utils.get_hparams_from_file("path/to/ljs_mb_istft_vits.json")
 net_g = SynthesizerTrn(
     len(symbols),
     hps.data.filter_length // 2 + 1,
@@ -26,13 +26,13 @@ net_g = SynthesizerTrn(
     **hps.model)
 _ = net_g.eval()
 
-_ = utils.load_checkpoint("C:/Users/24293/Desktop/model/tempbest.pth", net_g, None)
+_ = utils.load_checkpoint("path/to/model/tempbest.pth", net_g, None)
 import time
 
 def friend_chat(text):
-  call_name = "能代"
-  openai.api_key = "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"
-  identity = "你是我的老婆"
+  call_name = "her name"
+  openai.api_key = "your-openai-key"
+  identity = "my waifu"
   start_sequence = '\n'+str(call_name)+':'
   restart_sequence = "\nYou: "
   all_text = identity + restart_sequence
@@ -99,5 +99,6 @@ def show():
     with open("temp.txt","r", encoding="utf-8") as f1:
         text = f1.read()
         return text.replace('[JA]','').replace('[ZH]','')
+#on your server
 if __name__ == '__main__':
    app.run("0.0.0.0", 8080)
