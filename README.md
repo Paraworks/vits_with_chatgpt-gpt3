@@ -1,7 +1,7 @@
 # 焊接chatgpt/gpt3和vits的后端api程序
 # Combining chatgpt/gpt3&vits on your server
 用api启动的目的是搭建lovelive的聊天网站,我自己写的renpy应用需要live2d模型。你还可以尝试诸如mmd模型，简单的图片等诸多方式。
-部署到服务器以后的标准网页格式,运用映射把你的api投到公网http://43.159.36.6:8080/
+部署到服务器以后的标准网页格式,运用映射把你的api投到公网,如http://43.159.36.6:8080/
 应用地址https://drive.google.com/drive/folders/1vtootVMQ7wTOQwd15nJe6akzJUYNOw4d
 服务器配置好后
 解压live2d_chat-0.6(gpt3+chatgpt).zip，或lightweight_chat-1.0-win.zip
@@ -58,6 +58,12 @@ line43:_ = utils.load_checkpoint("path/to/checkpoint.pth", net_g_ms, None)
 #change this line to dev = torch.device("cpu")
 line32:dev = torch.device("cuda:0")
 ```
+## If you want to chat directly with your waifu without any setting in your devices
+Editing one_step.py
+```sh
+
+```
+
 ## launch
 ```sh
 python inference_api.py
