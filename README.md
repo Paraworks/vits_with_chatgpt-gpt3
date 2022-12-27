@@ -1,5 +1,6 @@
-# 这是一个焊接chatgpt/gpt3和vits的后端api程序
-用api启动的主要目的是搭建lovelive的聊天网站，其实16号就已经把这个项目搞好了。因为lovelive不像邦邦和少歌那样有live2d模型，找各种方案搁置了一周多。看了别的up的视频后发现大家对这种形式的热情很高，就把这个放在文件夹里吃灰的项目拿出来了。
+# 焊接chatgpt/gpt3和vits的后端api程序
+# Combining chatgpt&gpt3 on your server
+用api启动的目的是搭建lovelive的聊天网站,我自己写的renpy应用需要live2d模型。你还可以尝试诸如mmd模型，简单的图片等诸多方式
 参考用链接http://43.159.36.6:8080/
 项目地址https://drive.google.com/drive/folders/1vtootVMQ7wTOQwd15nJe6akzJUYNOw4d
 解压live2d_chat-0.6(gpt3+chatgpt).zip，
