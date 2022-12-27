@@ -1,11 +1,12 @@
 # 焊接chatgpt/gpt3和vits的后端api程序
 # Combining chatgpt&gpt3 on your server
-用api启动的目的是搭建lovelive的聊天网站,我自己写的renpy应用需要live2d模型。你还可以尝试诸如mmd模型，简单的图片等诸多方式
-参考用链接http://43.159.36.6:8080/
-项目地址https://drive.google.com/drive/folders/1vtootVMQ7wTOQwd15nJe6akzJUYNOw4d
-解压live2d_chat-0.6(gpt3+chatgpt).zip，
-运行游戏程序，
-建议用renpy修改游戏程序，内置配置流程，自定义你的live2d模型和交互方式。
+用api启动的目的是搭建lovelive的聊天网站,我自己写的renpy应用需要live2d模型。你还可以尝试诸如mmd模型，简单的图片等诸多方式。
+部署到服务器以后的标准网页格式,运用映射把你的api投到公网http://43.159.36.6:8080/
+应用地址https://drive.google.com/drive/folders/1vtootVMQ7wTOQwd15nJe6akzJUYNOw4d
+服务器配置好后
+解压live2d_chat-0.6(gpt3+chatgpt).zip，或lightweight_chat-1.0-win.zip
+前者可以在应用端自定义各种配置，后者可以直接对话，但是需要你进入script.rpy文件中修改网页地址
+建议安装renpy后修改游戏程序，参照官网学习，自定义你的live2d模型和交互方式。
 
 ## How to launch API in your windows or server
 (Suggestion) Python == 3.8/3.7
