@@ -1,3 +1,4 @@
+#one speaker only,you can get the model here: https://github.com/innnky/MB-iSTFT-VITS
 import torch
 import commons
 import utils
@@ -18,6 +19,7 @@ def get_text(text, hps):
         text_norm = commons.intersperse(text_norm, 0)
     text_norm = torch.LongTensor(text_norm)
     return text_norm
+#using nene, you can find it in the /MB-iSTFT-VITS/tree/main/configs
 hps = utils.get_hparams_from_file("path/to/ljs_mb_istft_vits.json")
 net_g = SynthesizerTrn(
     len(symbols),
@@ -25,10 +27,10 @@ net_g = SynthesizerTrn(
     hps.train.segment_size // hps.data.hop_length,
     **hps.model)
 _ = net_g.eval()
-
+#https://huggingface.co/innnky/mb-vits-models/resolve/main/tempbest.pth
 _ = utils.load_checkpoint("path/to/model/tempbest.pth", net_g, None)
 import time
-
+#Editing your setting here
 def friend_chat(text):
   call_name = "her name"
   openai.api_key = "your-openai-key"
