@@ -9,6 +9,7 @@
 建议安装renpy后修改游戏程序，参照官网学习，自定义你的live2d模型和交互方式。
 
 ## How to launch API in your windows or server
+Pre-requisites: cmake ffmpeg enviornments
 (Suggestion) Python == 3.8/3.7
 ## Clone a VITS repository or iSTFT-VITS repository
 ```sh
