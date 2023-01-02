@@ -10,7 +10,7 @@
 
 ## How to launch API in your windows or server
 Pre-requisites: cmake ffmpeg enviornments
-(Suggestion) Python == 3.8/3.7
+Python == 3.8/3.7
 ## Clone a VITS repository or iSTFT-VITS repository
 ```sh
 git clone https://github.com/CjangCjengh/vits.git
