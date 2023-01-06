@@ -11,12 +11,12 @@
 ## 启动api How to launch API in your windows or server
 Pre-requisites: cmake ffmpeg
 Python == 3.8/3.7
-## 准备好你的vits项目 Clone a VITS repository or iSTFT-VITS repository
+## 准备好vits项目 Clone a VITS repository or iSTFT-VITS repository
 ```sh
 git clone https://github.com/CjangCjengh/vits.git
 #git clone https://github.com/innnky/MB-iSTFT-VITS
 ```
-## 准备你的vits模型 Get the model and config
+## 多说话人模型 Get the model and config
 - See https://github.com/CjangCjengh/TTSModels or other repositorise in Github or huggingface
 ## Adding cleaners&inference_api.py to your project
 - Noticing "text_cleaners" in config.json
