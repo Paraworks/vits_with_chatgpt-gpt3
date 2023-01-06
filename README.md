@@ -59,6 +59,22 @@ line43:_ = utils.load_checkpoint("path/to/checkpoint.pth", net_g_ms, None)
 #change this line to dev = torch.device("cpu")
 line32:dev = torch.device("cuda:0")
 ```
+## launch
+```sh
+python inference_api.py
+```
+## What to do next?
+As you can see in the temminal
+```sh
+ * Serving Flask app 'inference_api'
+ * Debug mode: on
+INFO:werkzeug: WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8080
+ * Running on http://10.0.0.14:8080
+INFO:werkzeug: Press CTRL+C to quit
+```
+Which means you can try it in the game now
 ## If you want to chat directly with your waifu without any setting in your devices
 See https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/main/one_step.py
 ```sh
@@ -108,22 +124,6 @@ label speak:
     nengdai '[response]'
     jump sense1
 ```
-## launch
-```sh
-python inference_api.py
-```
-## What to do next?
-As you can see in the temminal
-```sh
- * Serving Flask app 'inference_api'
- * Debug mode: on
-INFO:werkzeug: WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on all addresses (0.0.0.0)
- * Running on http://127.0.0.1:8080
- * Running on http://10.0.0.14:8080
-INFO:werkzeug: Press CTRL+C to quit
-```
-Which means you can try it in the game now
 ## Why using api?
 不会真有人想每次都要启动一堆程序，配置个半天，吃电脑一大半内存和显存来跟纸片人聊天吧，反正我调试完之后肯定不会，20块一个月的服务器不香吗？
 ## Real usage for api
