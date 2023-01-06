@@ -2,7 +2,7 @@
 # Combining chatgpt/gpt3&vits on your server
 ```sh
 核心思路:把启动文件丢进你的vits项目，部署服务器。
-这只是一种思路，建议根据自己的需求自行修改。
+这只是一种思路，建议根据自己的需求自行修改，先实现普通的tts后再去整大活，比如随时随地掏出手机和老婆聊天()。
 部署到服务器以后的标准网页格式,http://yourhost:8080/
 之后diy一份简单的前端莱搭建live2d互动，这里采用renpy
 用于参考的应用地址https://drive.google.com/drive/folders/1vtootVMQ7wTOQwd15nJe6akzJUYNOw4d
