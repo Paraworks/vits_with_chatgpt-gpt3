@@ -10,7 +10,7 @@
 前者的思路是在应用启动后修改各种模型参数，适合多说话人。调试完成后可修改进入game目录修改script.rpy来简化应用。后者是单说话人的版本，但是需要你进入lightweight_chat-1.0-win/game文件中修改网页地址
 建议安装renpy后修改script.rpy，参照官网学习。准备好你的live2d模型并且用面部捕捉准备足够多的表情。
 ```
-#本地化vtb版本
+# 2023/2/1更新 本地化vtb版本
 https://github.com/Paraworks/audio-drive-live2d-with-vits-support
 ## 启动api
 ## How to launch API in your windows or server
