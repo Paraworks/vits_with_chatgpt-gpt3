@@ -53,7 +53,7 @@ def is_japanese(string):
                 return True
         return False 
 
-def friend_chat(text):
+def gpt3_chat(text):
   call_name = "派蒙"
   openai.api_key = args.key
   identity = "用中文回答我的问题"
@@ -78,7 +78,7 @@ def friend_chat(text):
 
 def infer(text):
     sid = 16
-    text = friend_chat(text)
+    text = gpt3_chat(text)
     with open(outdir + "/temp.txt", "w", encoding="utf-8") as f:
         f.write(text)
     text = f"[JA]{text}[JA]" if is_japanese(text) else f"[ZH]{text}[ZH]"
