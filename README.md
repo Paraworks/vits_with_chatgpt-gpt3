@@ -14,6 +14,7 @@ conda init bash
 bash
 conda activate chatbot
 git clone https://github.com/Paraworks/vits_with_chatgpt-gpt3
+cd vits_with_chatgpt-gpt3
 pip install -r requirements.txt
 #after uploading onnx models and edit it in the api_launch.py, launch
 python api_launch.py --key 'openapikey see: https://openai.com/api/'
