@@ -23,7 +23,7 @@ python api_launch.py --key 'openapikey see: https://openai.com/api/'
  #* Running on http://172.16.5.4:8080
 #部署到服务器以后的标准网页格式,http://yourhost:8080/
 ```
-#第二步：从release中下载前端，解压后直接运行
+# 第二步：从release中下载前端，解压后直接运行
 Run basic.exe after exporting it from release
 # 2023/2/1更新 本地化vtb版本
 https://github.com/Paraworks/audio-drive-live2d-with-vits-support
