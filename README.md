@@ -31,14 +31,14 @@ https://github.com/Paraworks/audio-drive-live2d-with-vits-support
 ## 启动api
 ## Why using api?
 本地能不能跑成gpt都是个问题，当然挂服务器上也是一个可行措施，当然，你也可以在把自己的电脑当作api
-## Why not chatgpt?
-In the previous version
-You can edit it in the inference_api.py
+## I need Chatgpt?
+Using these codes to replace friend_chat(text)
 ```sh
-line143:#CHATGPT抓取
-line144:#session_token = '参考https://www.youtube.com/watch?v=TdNSj_qgdFk'
-line145:#api = ChatGPT(session_token)
-#Delate the comment in line200 and line233
+#CHATGPT抓取
+session_token = '参考https://www.youtube.com/watch?v=TdNSj_qgdFk'
+api = ChatGPT(session_token)
+response_from_chatgpt = api.send_message(text)
+text= response_from_chatgpt['message'].replace('\n','').replace(' ','')
 ```
 If you want to chat with it indiscriminately as if it is your waifu, the company will stop you lol.
 ## What to do with game?
