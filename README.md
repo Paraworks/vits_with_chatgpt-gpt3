@@ -1,147 +1,38 @@
-# 焊接chatgpt/gpt3和vits的后端api程序
-# Combining chatgpt/gpt3&vits on your server
+## 2023/2/10更新 vits-onnx 一键式启动
+# 第一步：启动焊接chatgpt/gpt3和vits的后端api程序
+Combining chatgpt/gpt3&vits as api and launch it（Server suggested）
 ```sh
-核心思路:把启动文件丢进你的vits项目，部署服务器。
-这只是一种思路，建议根据自己的需求自行修改，先实现普通的tts后再去整大活，比如随时随地掏出手机和老婆聊天()。
-部署到服务器以后的标准网页格式,http://yourhost:8080/
-之后diy一份简单的前端莱搭建live2d互动，这里采用renpy
-用于参考的应用地址https://drive.google.com/drive/folders/1vtootVMQ7wTOQwd15nJe6akzJUYNOw4d
-解压live2d_chat-0.6(gpt3+chatgpt).zip，或lightweight_chat-1.0-win.zip
-前者的思路是在应用启动后修改各种模型参数，适合多说话人。调试完成后可修改进入game目录修改script.rpy来简化应用。后者是单说话人的版本，但是需要你进入lightweight_chat-1.0-win/game文件中修改网页地址
-建议安装renpy后修改script.rpy，参照官网学习。准备好你的live2d模型并且用面部捕捉准备足够多的表情。
+#核心思路:服务器部署api，完成主要工作
+#Installing cmake and FFmpeg, showing FFmpeg
+sudo apt update
+sudo apt upgrade
+sudo apt install ffmpeg
+ffmpeg -version
+#Creating enviornments
+conda create -n chatbot python=3.8
+conda init bash
+bash
+conda activate chatbot
+git clone https://github.com/Paraworks/vits_with_chatgpt-gpt3
+pip install -r requirements.txt
+#after uploading onnx models and edit it in the api_launch.py, launch
+python api_launch.py --key 'openapikey see: https://openai.com/api/'
+#这只是一种思路，建议根据自己的需求自行修改，先实现普通的tts后再去整大活，比如随时随地掏出手机和老婆聊天()。
+ #* Running on all addresses (0.0.0.0)
+ #* Running on http://127.0.0.1:8080
+ #* Running on http://172.16.5.4:8080
+#部署到服务器以后的标准网页格式,http://yourhost:8080/
 ```
+#第二步：从release中下载前端，解压后直接运行
+Run basic.exe after exporting it from release
+# Combining chatgpt/gpt3&vits as api and launch it
 # 2023/2/1更新 本地化vtb版本
 https://github.com/Paraworks/audio-drive-live2d-with-vits-support
 ## 启动api
-## How to launch API in your windows or server
-Pre-requisites: cmake ffmpeg
-Python == 3.8/3.7
-## 准备好vits项目
-## Clone a VITS repository or iSTFT-VITS repository
-```sh
-git clone https://github.com/CjangCjengh/vits.git
-#git clone https://github.com/innnky/MB-iSTFT-VITS
-```
-## 多说话人模型
-## Get the model and config
-- See https://github.com/CjangCjengh/TTSModels or other repositorise in Github or huggingface
-## Adding cleaners&inference_api.py to your project
-- Noticing "text_cleaners" in config.json
-- Edit 'text'dictionary in the VITS or iSTFT-VITS
-- Remove unnecessary imports from text/cleaners.py
-- The path of inference_api.py should be like path/to/vits/inference_api.py
-- If you want to launch this project in your server, it is recommended to use iSTFT-VITS for tts: path/to/MB-iSTFT-VITS/inference_api.py
-## 安装环境
-## Install requirements of vits enviornments
-```sh
-cd vits
-#cd MB-iSTFT-VITS
-pip install -r requirements.txt
-```
-## 设置分词
-## Build Monotonic Alignment Search and run preprocessing
-```sh
-# Cython-version Monotonoic Alignment Search
-cd monotonic_align
-mkdir monotonic_align
-python setup.py build_ext --inplace
-cd vits
-#cd MB-iSTFT-VITS
-```
-## 安装chatgpt相关包
-## Install requirements for using GPT3/CHATGPT in python
-```sh
-pip install pydub 
-pip install openai
-#Not recommended due to demanding requirements
-#pip install pyChatGPT
-```
-## 修改执行文件中的模型路径
-## Editing the path of configuration file in inference_api.py
-```sh
-line26:#设定存储各种数据的目录，方便查看，默认C:/project_file
-line27:current_work_dir = os.path.dirname(__file__)
-line28:weight_path = os.path.join(current_work_dir, '/project_file/')
-line34:hps_ms = utils.get_hparams_from_file("path/to/config.json")
-line43:_ = utils.load_checkpoint("path/to/checkpoint.pth", net_g_ms, None)
-```
-## For CPU inference in server or those who do not have cuda installed
-```sh
-#change this line to dev = torch.device("cpu")
-line32:dev = torch.device("cuda:0")
-```
-## 启动后端
-## launch
-```sh
-python inference_api.py
-```
-## 下一步
-## What to do next?
-As you can see in the temminal
-```sh
- * Serving Flask app 'inference_api'
- * Debug mode: on
-INFO:werkzeug: WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
- * Running on all addresses (0.0.0.0)
- * Running on http://127.0.0.1:8080
- * Running on http://10.0.0.14:8080
-INFO:werkzeug: Press CTRL+C to quit
-```
-Which means you can try it in the game now
-## If you want to chat directly with your waifu without any setting in your devices
-See https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/main/one_step.py
-```sh
-cd MB-iSTFT-VITS
-python one_step.py
-```
-in /lightweight_chat-1.0-win/game/script.rpy
-```sh
-#You can change live2d
-define nengdai = Character("Your character name")
-define config.gl2 = True
-image nengdai = Live2D("nengdai_2", top=0.3, base=0.7, height=1,loop=True)
-label start:
-    #加载live2d动作，参考https://www.renpy.cn/doc/live2d.html
-    show nengdai idle
-    $ import requests
-    $ import os
-    $ import threading
-    $ from time import sleep
-    $ global your_text
-    jump sense1
-
-label sense1:
-    show nengdai main_1
-    $ current_work_dir = os.path.dirname(__file__)
-    $ weight_path = os.path.join(current_work_dir, 'temp.ogg')
-    $ weight_path = weight_path.replace("\\","/")
-    $ your_text = renpy.input('',length=60)
-#Change website to voice
-    $ webs = "http://127.0.0.1:8080/gpt?text=" + your_text
-    python:
-        def get_voice():
-            res = requests.get(webs)
-            music = res.content
-            with open(weight_path, 'wb') as code:
-                code.write(music)
-#Change website to texture
-            response = requests.get("http://127.0.0.1:8080/word").text
-            global response
-        thread = threading.Thread(target=get_voice)
-        thread.start()
-    jump speak 
-
-label speak:
-    nengdai '等待合成'
-    voice weight_path
-    nengdai '[response]'
-    jump sense1
-```
 ## Why using api?
-不会真有人想每次都要启动一堆程序，配置个半天，吃电脑一大半内存和显存来跟纸片人聊天吧，反正我调试完之后肯定不会，20块一个月的服务器不香吗？
-## Real usage for api
-Building chatroom on my website. Now preparing the live2d models.
+本地能不能跑成gpt都是个问题，当然挂服务器上也是一个可行措施，当然，你也可以在把自己的电脑当作api
 ## Why not chatgpt?
+In the previous version
 You can edit it in the inference_api.py
 ```sh
 line143:#CHATGPT抓取
@@ -158,18 +49,18 @@ You can follow the instructions and beautify your game, can take my game given a
 抛弃那些花里胡哨的设置，只编辑script.rpy。交互式live2d的核心代码
 ```sh
 #定义角色,这个类将会继承我们需要的live2d模型和语音文件这些花里胡哨的东西
-define Character1 = Character("Your_Character_Name")
+define Character1 = Character("First Character")
 #为游戏配置live2d，你需要在安装renpy后将从live2d官网下载的cublism for native压缩包放到renpy的目录下，之后点开renpy按照指示自动加载。
 define config.gl2 = True
 #导入live2d模型,大部分live2d模型的文件夹名字和model3文件的名字相同，可以直接将路径名设置为文件夹的名字，保险起见也可直接对应model3文件
-image Character1 = Live2D("Path/to/your_model/your_model.model3.json", top=0.0, base=0.7, height=1.0,loop=True)
+image Character1 = Live2D("live2d/hiyori",loop=True)
 #一定要有一个"开始"场景，场景用label标记。
 label start:
 #导入背景图片，在image 处自定义，格式‘bg name.png’,中间要带空格号，我也不知道为什么要这样设定
     show bg name
     #加载live2d动作，参考https://www.renpy.cn/doc/live2d.html
 #live2d模型都有自己的动作名，你可以在model3文件中查看，也可以自己用动作捕捉工具(steam里搜vtuber)自定义。
-    show Character1 motion1
+    show Character1 m04
 #renpy有两种加载python命令的方式，一种是"$ "+代码，另外一种是"Python:"，下一行缩进后编写，这里先用"$ "
 #导入需要的库
     $ import requests
@@ -195,17 +86,6 @@ return
 label setting0:
 #renpy需要在python命令中用renpy.input获取文本输入，这样就可以修改参数了。调试后可以将这些参数存储在游戏文件中。
     $ web_base = renpy.input("输入后端api的地址，如本地推理为'http://127.0.0.1:8080'，终端运行inference_api.py时查看",length=100)
-    $ open_api_key = renpy.input("填写你的API keys 网址：https://beta.openai.com/account/api-keys",length=1000)
-    $ open_api_key = str(open_api_key)
-    $ your_name = renpy.input("你的名字：",length=10)
-    $ noise_scale = renpy.input('填写噪声参数，默认输入0.667',length=10)
-    $ noise_scale_w = renpy.input('填写噪声参数偏差，默认输入0.8',length=10)
-    $ noise_scale_0 = renpy.input('语速设置，默认1',length=10)
-    $ spk_id = int(renpy.input("对话角色",length=10))
-#renshe这个玩意是用来和gpt3对话用的，实际上有些多余了，chatgpt则完全不需要，直接空输入也行
-    $ renshe =  renpy.input("写上人设",length=200)    
-    $ web = web_base + "/identity?text=" + renshe + "&mapping=" + str(your_name)
-    $ renshe = requests.get(web).text
     jump sense1
 
 label sense1:
@@ -216,7 +96,7 @@ label sense1:
 #交互的第一步
     $ your_text = renpy.input('',length=60)
 #合成网址用来发送请求(本来只有需传入文本就行了，后来参数越传越多)
-    $ webs = web_base + "/gpt?text="+ your_text  + "&speakers_name=" + str(spk_id) +"&api_key=" + str(open_api_key) + "&mapping=" + str(your_name) + "&noise_scale=" + str(noise_scale) + "&noise_scale_w=" + str(noise_scale_w) + "&spd=" + str(noise_scale_0)
+    $ webs = web_base + "/gpt?text="+ your_text
 #这就是另外一种插入python指令的方法了，用treading实现同步运行
     python:
         def get_voice():
@@ -224,7 +104,7 @@ label sense1:
             music = res.content
             with open(weight_path, 'wb') as code:
                 code.write(music)
-            web2 = web_base + "/word?mapping=" + your_name
+            web2 = web_base + "/word"
             answer = requests.get(web2).text
             global answer
 #            os.system(weight_path)
@@ -238,10 +118,9 @@ menu:
         jump setting0
 #最后的展示阶段，可以自己添加动作，这里选择用voice播放声音而不是简单粗暴的os
 label reply:
-    show Character1 motion2
+    show Character1 m02
     voice weight_path
-    Setsuna '[answer]'
-    show Character1 motion2
+    Character1 '[answer]'
+    show Character1 m03
     jump sense1
-
 ```
