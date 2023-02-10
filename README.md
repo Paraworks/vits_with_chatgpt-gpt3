@@ -1,7 +1,7 @@
 ## 2023/2/10更新 vits-onnx 一键式启动
 # 第一步：启动焊接chatgpt/gpt3和vits的后端api程序
+Combining chatgpt/gpt3&vits as api and launch it（Server suggested）
 ```sh
-#Combining chatgpt/gpt3&vits as api and launch it（Server suggested）
 #核心思路:服务器部署api，完成主要工作
 #Installing cmake and FFmpeg, showing FFmpeg
 sudo apt update
@@ -25,7 +25,6 @@ python api_launch.py --key 'openapikey see: https://openai.com/api/'
 ```
 #第二步：从release中下载前端，解压后直接运行
 Run basic.exe after exporting it from release
-# Combining chatgpt/gpt3&vits as api and launch it
 # 2023/2/1更新 本地化vtb版本
 https://github.com/Paraworks/audio-drive-live2d-with-vits-support
 ## 启动api
