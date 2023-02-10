@@ -21,3 +21,4 @@ pydub
 inflect
 eng_to_ipa
 onnxruntime
+flask
