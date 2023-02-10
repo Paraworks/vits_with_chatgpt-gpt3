@@ -1,6 +1,7 @@
 ## 2023/2/10更新 vits-onnx 一键式启动
-# 第一步：启动焊接chatgpt/gpt3和vits的后端api程序
+# 第一步：server端启动后端api程序(Windows也可以)
 Combining chatgpt/gpt3&vits as api and launch it（Server suggested）
+https://huggingface.co/Mahiruoshi/vits_onnx_model
 ```sh
 #核心思路:服务器部署api，完成主要工作
 #Installing cmake and FFmpeg, showing FFmpeg
