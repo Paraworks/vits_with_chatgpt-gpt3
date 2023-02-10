@@ -32,7 +32,7 @@ https://github.com/Paraworks/audio-drive-live2d-with-vits-support
 ## Why using api?
 本地能不能跑成gpt都是个问题，当然挂服务器上也是一个可行措施，当然，你也可以在把自己的电脑当作api
 ## I need Chatgpt?
-Using these codes to replace friend_chat(text)
+Using these codes to replace gpt3_chat(text)
 ```sh
 #CHATGPT抓取
 session_token = '参考https://www.youtube.com/watch?v=TdNSj_qgdFk'
