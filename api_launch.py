@@ -19,10 +19,12 @@ app = Flask(__name__)
 mutex = threading.Lock()
 def get_args():
     parser = argparse.ArgumentParser(description='inference')
-    parser.add_argument('--onnx_model', default = '../moe/model.onnx')
-    parser.add_argument('--cfg', default="../moe/config.json")
-    parser.add_argument('--outdir', default="../moe",
+    parser.add_argument('--onnx_model', default = './moe/model.onnx')
+    parser.add_argument('--cfg', default="./moe/config.json")
+    parser.add_argument('--outdir', default="./moe",
                         help='ouput directory')
+    parser.add_argument('--key',default = "你的openai key",
+                        help='openai api key')
     args = parser.parse_args()
     return args
 
@@ -53,8 +55,8 @@ def is_japanese(string):
 
 def friend_chat(text):
   call_name = "派蒙"
-  openai.api_key = "your openai key"
-  identity = ""
+  openai.api_key = args.key
+  identity = "用中文回答我的问题"
   start_sequence = '\n'+str(call_name)+':'
   restart_sequence = "\nYou: "
   if 1 == 1:
@@ -122,6 +124,5 @@ def show():
     with open(outdir + "/temp.txt","r", encoding="utf-8") as f1:
         text = f1.read()
         return text.replace('[JA]','').replace('[ZH]','')
-#on your server
 if __name__ == '__main__':
    app.run("0.0.0.0", 8080)
