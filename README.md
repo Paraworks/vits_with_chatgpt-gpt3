@@ -20,6 +20,11 @@ git clone https://github.com/Paraworks/vits_with_chatgpt-gpt3
 cd vits_with_chatgpt-gpt3
 pip install -r requirements.txt
 #after uploading onnx models and edit it in the api_launch.py, launch
+#Reference
+#('--onnx_model', default = './moe/model.onnx')
+#('--cfg', default="./moe/config.json")
+#('--outdir', default="./moe",help='ouput directory')
+#('--key',default = "你的openai key",help='openai api key')
 python api_launch.py --key 'openapikey see: https://openai.com/api/'
 #这只是一种思路，建议根据自己的需求自行修改，先实现普通的tts后再去整大活，比如随时随地掏出手机和老婆聊天()。
  #* Running on all addresses (0.0.0.0)
