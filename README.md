@@ -2,7 +2,7 @@
 # 第一步：server端启动后端api程序(Windows也可以)
 ## Combining chatgpt/gpt3&vits as api and launch it（Server suggested）
 ## Onnx export: https://gitee.com/ccdesue/vits_web_demo
-onnx model example: https://huggingface.co/Mahiruoshi/vits_onnx_model
+VIts onnx model example: https://huggingface.co/Mahiruoshi/vits_onnx_model
 Important : Using your own text files including cleaners and symbols
 ```sh
 #核心思路:服务器部署api，完成主要工作
@@ -35,14 +35,16 @@ python api_launch.py --key 'openapikey see: https://openai.com/api/'
 # 第二步：从release中下载前端，解压后直接运行
 Run basic.exe after exporting it from release
 ```sh
-#Input url or setting it in the basic/game/script.rpy
+#Input url after game or setting it in the basic/game/script.rpy
 $ web_base = renpy.input("输入后端api的地址，如本地推理为'http://127.0.0.1:8080'，终端运行inference_api.py时查看",length=100)
+#Replace it to:
+$ web_base = 'your_onw_key'
 ```
 # 2023/2/1更新 本地化vtb版本
 https://github.com/Paraworks/audio-drive-live2d-with-vits-support
 ## 启动api
 ## Why using api?
-本地能不能跑成gpt都是个问题，当然挂服务器上也是一个可行措施，当然，你也可以在把自己的电脑当作api
+本地能不能跑成gpt都是个问题，挂服务器上就成了一个可行措施，当然，你也可以在把自己的电脑当作api
 ## Need Chatgpt instead?
 Using these codes to replace gpt3_chat(text)
 ```sh
