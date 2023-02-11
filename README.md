@@ -2,8 +2,8 @@
 # 第一步：server端启动后端api程序(Windows也可以)
 ## Combining chatgpt/gpt3&vits as api and launch it（Server suggested）
 ## Onnx export: https://gitee.com/ccdesue/vits_web_demo
-VIts onnx model example: https://huggingface.co/Mahiruoshi/vits_onnx_model
-Important : Using your own text files including cleaners and symbols
+Vits onnx model example: https://huggingface.co/Mahiruoshi/vits_onnx_model
+Reminder : Using your own text files including cleaners and symbols
 ```sh
 #核心思路:服务器部署api，完成主要工作
 #Installing cmake and FFmpeg, showing FFmpeg
