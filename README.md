@@ -2,7 +2,7 @@
 # 第一步：server端启动后端api程序(Windows也可以)
 ## Combining chatgpt/gpt3&vits as api and launch it（Server suggested）
 ## Onnx export: [来源](https://gitee.com/ccdesue/vits_web_demo)
-[colab版本](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/onnx/onnx_export_colab.ipynb)
+[colab导出](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/onnx/onnx_export_colab.ipynb)
 [该仓库使用的模型](https://huggingface.co/Mahiruoshi/vits_onnx_model/tree/main)
 [记得替换text文件夹以支持多语种](https://github.com/Paraworks/vits_with_chatgpt-gpt3/tree/onnx/text)
 ```sh
@@ -42,8 +42,7 @@ $ web_base = renpy.input("输入后端api的地址，如本地推理为'http://1
 #Replace it to:
 $ web_base = 'your_onw_key'
 ```
-# 2023/2/1更新 本地化vtb版本
-https://github.com/Paraworks/audio-drive-live2d-with-vits-support
+# 2023/2/1更新 [(开发中)EasyVtuber&手工皮套版本](https://github.com/Paraworks/audio-drive-live2d-with-vits-support)
 ## 启动api
 ## Why using api?
 本地能不能跑成gpt都是个问题，挂服务器上就成了一个可行措施，当然，你也可以在把自己的电脑当作api
