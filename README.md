@@ -1,7 +1,7 @@
 ## 2023/2/10更新 vits-onnx 一键式启动
 # 第一步：server端启动后端api程序(Windows也可以)
 ## Combining chatgpt/gpt3&vits as api and launch it（Server suggested）
-## Onnx export: https://gitee.com/ccdesue/vits_web_demo
+## Onnx export: https://gitee.com/ccdesue/vits_web_demo https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/onnx/onnx_export_colab.ipynb
 Vits onnx model example: https://huggingface.co/Mahiruoshi/vits_onnx_model
 Reminder : Using your own text files including cleaners and symbols
 ```sh
