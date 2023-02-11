@@ -49,6 +49,7 @@ $ web_base = 'your_onw_key'
 Using these codes to replace gpt3_chat(text)
 ```sh
 #CHATGPT抓取
+from pyChatGPT import ChatGPT
 session_token = '参考https://www.youtube.com/watch?v=TdNSj_qgdFk'
 api = ChatGPT(session_token)
 response_from_chatgpt = api.send_message(text)
