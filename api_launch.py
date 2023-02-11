@@ -77,7 +77,7 @@ def gpt3_chat(text):
   return response['choices'][0]['text'].strip()
 
 def infer(text):
-    sid = 16
+    sid = 0
     text = gpt3_chat(text)
     with open(outdir + "/temp.txt", "w", encoding="utf-8") as f:
         f.write(text)
