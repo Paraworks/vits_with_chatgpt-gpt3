@@ -3,8 +3,8 @@
 ## Combining chatgpt/gpt3&vits as api and launch it（Server suggested）
 ## Onnx export: [来源](https://gitee.com/ccdesue/vits_web_demo)
 [colab导出](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/onnx/onnx_export_colab.ipynb)
-[该仓库使用的模型](https://huggingface.co/Mahiruoshi/vits_onnx_model/tree/main)
-[记得替换text文件夹以支持多语种](https://github.com/Paraworks/vits_with_chatgpt-gpt3/tree/onnx/text)
+[该仓库使用的模型(Onnx model example)](https://huggingface.co/Mahiruoshi/vits_onnx_model/tree/main)
+[替换text文件夹以适配不同模型(Change text folder)](https://github.com/Paraworks/vits_with_chatgpt-gpt3/tree/onnx/text)
 ```sh
 #核心思路:服务器部署api，完成主要工作
 #Click Code && codespaces and start
@@ -42,11 +42,10 @@ $ web_base = renpy.input("输入后端api的地址，如本地推理为'http://1
 #Replace it to:
 $ web_base = 'your_onw_key'
 ```
-# 2023/2/1更新 [(开发中)EasyVtuber&手工皮套版本](https://github.com/Paraworks/audio-drive-live2d-with-vits-support)
-## 启动api
+## [(开发中)EasyVtuber&手工皮套版本](https://github.com/Paraworks/audio-drive-live2d-with-vits-support)
 ## Why using api?
 本地能不能跑成gpt都是个问题，挂服务器上就成了一个可行措施，当然，你也可以在把自己的电脑当作api
-## Need Chatgpt instead?
+## [Need Chatgpt instead?](https://www.youtube.com/watch?v=TdNSj_qgdFk)
 Using these codes to replace gpt3_chat(text)
 ```sh
 #CHATGPT抓取
@@ -57,7 +56,7 @@ text= response_from_chatgpt['message'].replace('\n','').replace(' ','')
 ```
 If you want to chat with it indiscriminately as if it is your waifu, the company will stop you lol.
 ## What to do with game?
-Official website of RenPy https://www.renpy.org/
+[Official website of RenPy](https://www.renpy.org/)
 You can follow the instructions and beautify your game, can take my game given as a reference.
 
 ## 极速入门renpy
