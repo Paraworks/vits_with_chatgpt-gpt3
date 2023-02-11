@@ -6,7 +6,8 @@ Vits onnx model example: https://huggingface.co/Mahiruoshi/vits_onnx_model
 Reminder : Using your own text files including cleaners and symbols
 ```sh
 #核心思路:服务器部署api，完成主要工作
-#Installing cmake and FFmpeg, showing FFmpeg
+#Click Code && codespaces and start
+#Installing cmake and FFmpeg,showing FFmpeg,since cmake can be installed directly in the Extensions
 sudo apt update
 sudo apt upgrade
 sudo apt install ffmpeg
