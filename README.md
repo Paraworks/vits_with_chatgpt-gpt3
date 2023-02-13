@@ -139,3 +139,4 @@ label reply:
     show Character1 m03
     jump sense1
 ```
+# 关于商用,请使用拥有完整版权的语料库训练vits模型并且使用openai官方的api key
