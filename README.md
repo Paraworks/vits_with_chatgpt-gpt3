@@ -40,7 +40,7 @@ Run basic.exe after exporting it from release
 #Input url after game or setting it in the basic/game/script.rpy: label setting0:
 $ web_base = renpy.input("输入后端api的地址，如本地推理为'http://127.0.0.1:8080'，终端运行inference_api.py时查看",length=100)
 #Replace it to:
-$ web_base = 'your_onw_key'
+$ web_base = 'your_onw_web'
 ```
 ## [(开发中)EasyVtuber&手工皮套版本](https://github.com/Paraworks/audio-drive-live2d-with-vits-support)
 ## Why using api?
