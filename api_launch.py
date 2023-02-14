@@ -75,15 +75,15 @@ def gpt3_chat(text):
     stop=["\nYou:"]
   )
   return response['choices'][0]['text'].strip()
-
+#注意:对于不同的cleaner是，需要自行修改symbols
 def infer(text):
     sid = 0
     text = gpt3_chat(text)
     with open(outdir + "/temp.txt", "w", encoding="utf-8") as f:
         f.write(text)
     text = f"[JA]{text}[JA]" if is_japanese(text) else f"[ZH]{text}[ZH]"
-    seq = text_to_sequence(text, cleaner_names=hps.data.text_cleaners
-                                   )
+    seq = text_to_sequence(text, symbols=hps.symbols, cleaner_names=hps.data.text_cleaners)
+    #seq = text_to_sequence(text, cleaner_names=hps.data.text_cleaners)
     if hps.data.add_blank:
         seq = commons.intersperse(seq, 0)
     with torch.no_grad():
