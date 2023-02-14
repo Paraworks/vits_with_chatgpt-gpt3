@@ -34,6 +34,16 @@ python api_launch.py --key 'openapikey see: https://openai.com/api/'
  #* Running on http://172.16.5.4:8080
 #部署到服务器以后的标准网页格式,http://yourhost:8080/
 ```
+# 对于 text_to_sequence相关错误
+```sh
+#在推理中，可能出现symbols相关错误，这主要是由于不同text cleaner之间的冲突导致的
+line 85, in infer
+seq = text_to_sequence
+#需要你在这一行自行修改
+#如果需要
+symbols seq = text_to_sequence(text, symbols=hps.symbols, cleaner_names=hps.data.text_cleaners)
+#如不需要，把 symbols=hps.symbols 删掉
+```
 # 第二步：从release中下载前端，解压后直接运行
 Run basic.exe after exporting it from release
 ```sh
