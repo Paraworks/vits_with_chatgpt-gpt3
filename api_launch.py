@@ -110,8 +110,22 @@ def infer(text):
         wavfile.write(outdir + '/temp2.wav',hps.data.sampling_rate, audio.astype(np.int16))
         wav = AudioSegment.from_wav(outdir + '/temp2.wav')
         wav.export(outdir +'/now2.ogg', format="ogg")
+    return text
 
-
+@app.route('/chat')
+def text_api():
+    text = request.args.get('Text','')
+    #text = infer(text)
+    with open(outdir +'/temp2.wav','rb') as bit:
+        wav_bytes = bit.read()
+    headers = {
+        'Content-Type': 'audio/wav',
+        'Text': text.encode('utf-8')
+    }
+    return wav_bytes, 200, headers
+if __name__ == '__main__':
+   app.run("0.0.0.0", 8080) 
+        
 @app.route('/gpt')
 def text_api():
     text = request.args.get('text','')
