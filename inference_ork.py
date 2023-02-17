@@ -116,3 +116,6 @@ def main():
       text = input("You:")
       text = infer(text)
       print('Waifu:'+text.replace("[ZH]","").replace("[JA]",""))
+    
+if __name__ == '__main__':
+    main()
