@@ -1,5 +1,19 @@
 ## 2023/2/10更新 vits-onnx 一键式启动
-# 第一步：server端启动后端api程序(Windows也可以)
+## 2023/2/17更新 弃用renpy [采用桌宠版本](https://github.com/Arkueid/Live2DMascot)
+# 克隆[Live2DMascot](https://github.com/Arkueid/Live2DMascot)仓库后，修改config.json文件
+```sh
+"ChatAPI" : 
+{
+	"ChatSavePath" : "chat",  //聊天音频和文本保存路径
+	"CustomChatServer" : 
+	{
+		"HostPort" : "http://127.0.0.1:8080",  //服务器地址，端口默认8080
+		"On" : true,  //开启自定义聊天接口
+		"ReadTimeOut" : 114,  //等待响应时间(s)
+		"Route" : "/chat"  //路径
+	},
+```
+# 下一步：server端启动后端api程序(Windows也可以)
 ## Combining chatgpt/gpt3&vits as api and launch it（Server suggested）
 ## [onnx导出colab版](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/onnx/onnx_export_colab.ipynb)
 [来源](https://gitee.com/ccdesue/vits_web_demo)
@@ -44,7 +58,7 @@ seq = text_to_sequence
 symbols seq = text_to_sequence(text, symbols=hps.symbols, cleaner_names=hps.data.text_cleaners)
 #如不需要，把 symbols=hps.symbols 删掉
 ```
-# 第二步：从release中下载前端，解压后直接运行
+# 已废弃：从release中下载前端，解压后直接运行
 Run basic.exe after exporting it from release
 ```sh
 #Input url after game or setting it in the basic/game/script.rpy: label setting0:
