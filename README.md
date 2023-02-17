@@ -22,9 +22,10 @@ mkdir moe
 python inference_api.py
 ```
 # [绿皮思路chat](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/main/inference_ork.py)
-许多live2d都有触碰事件，那么，只需要有一个装载有完整cubism for native功能的live2d播放器
+许多live2d都有触碰事件，那么，只需要有一个装载有完整cubism for native功能的live2d播放器,其可以支持点击事件并且支持对口型功能。
+此时只需要启动 inference_ork.py
 ```sh
-#将audio参数修改为触碰动作的音频路径
+#在程序中将audio参数修改为触碰动作的音频路径
 #比如
 parser.add_argument('--audio',
                     type=str,
