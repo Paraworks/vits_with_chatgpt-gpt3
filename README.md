@@ -79,7 +79,7 @@ api = ChatGPT(session_token)
 response_from_chatgpt = api.send_message(text)
 text= response_from_chatgpt['message'].replace('\n','').replace(' ','')
 ```
-If you want to chat with it indiscriminately as if it is your waifu, the company will stop you lol.
+这可以让bot更加智能，代价是非常不稳定
 ## What to do with game?
 [Official website of RenPy](https://www.renpy.org/)
 You can follow the instructions and beautify your game, can take my game given as a reference.
