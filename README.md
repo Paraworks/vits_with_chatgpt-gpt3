@@ -7,7 +7,7 @@
 	"ChatSavePath" : "chat",  //聊天音频和文本保存路径
 	"CustomChatServer" : 
 	{
-		"HostPort" : "http://127.0.0.1:8080",  //服务器地址，端口默认8080
+		"HostPort" : "http://yourhost:8080",  //服务器地址，端口默认8080
 		"On" : true,  //开启自定义聊天接口
 		"ReadTimeOut" : 114,  //等待响应时间(s)
 		"Route" : "/chat"  //路径
