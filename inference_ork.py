@@ -18,7 +18,6 @@ from text.symbols import symbols
 from text import text_to_sequence
 
 from scipy.io.wavfile import write
-from flask import Flask, request
 import openai
 #from pyChatGPT import ChatGPT
 
