@@ -18,7 +18,7 @@
 将[inference_api.py](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/main/inference_api.py)丢入你的vits项目或moegoe项目中
 ```sh
 cd vits
-makdir moe
+mkdir moe
 python inference_api.py
 ```
 # 对于 text_to_sequence相关错误
