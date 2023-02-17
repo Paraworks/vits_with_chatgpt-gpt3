@@ -31,7 +31,7 @@ def get_args():
     parser.add_argument('--cfg', default="./moe/config.json")
     parser.add_argument('--outdir', default="./moe",
                         help='ouput directory')
-    parser.add_argument('--key',default = "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",
+    parser.add_argument('--key',default = "see openai key",
                         help='see openai')
     args = parser.parse_args()
     return args
