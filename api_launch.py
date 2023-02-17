@@ -125,7 +125,7 @@ def text_api():
     return wav_bytes, 200, headers
 if __name__ == '__main__':
    app.run("0.0.0.0", 8080) 
-        
+'''       
 @app.route('/gpt')
 def text_api():
     text = request.args.get('text','')
@@ -140,3 +140,4 @@ def show():
         return text.replace('[JA]','').replace('[ZH]','')
 if __name__ == '__main__':
    app.run("0.0.0.0", 8080)
+'''
