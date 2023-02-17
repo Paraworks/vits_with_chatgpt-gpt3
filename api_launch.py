@@ -80,7 +80,7 @@ def infer(text):
     sid = 0
     text = gpt3_chat(text)
     text = f"[JA]{text}[JA]" if is_japanese(text) else f"[ZH]{text}[ZH]"
-    seq = text_to_sequence(text, cleaner_names=hps.data.text_cleaners)
+    symbols seq = text_to_sequence(text, symbols=hps.symbols, cleaner_names=hps.data.text_cleaners)
     #seq = text_to_sequence(text, cleaner_names=hps.data.text_cleaners)
     if hps.data.add_blank:
         seq = commons.intersperse(seq, 0)
