@@ -115,7 +115,7 @@ def infer(text):
 @app.route('/chat')
 def text_api():
     text = request.args.get('Text','')
-    #text = infer(text)
+    text = infer(text)
     with open(outdir +'/temp2.wav','rb') as bit:
         wav_bytes = bit.read()
     headers = {
