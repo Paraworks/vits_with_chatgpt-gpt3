@@ -66,7 +66,7 @@ $ web_base = renpy.input("输入后端api的地址，如本地推理为'http://1
 #Replace it to:
 $ web_base = 'your_onw_web'
 ```
-## [(开发中)EasyVtuber&手工皮套版本](https://github.com/Paraworks/audio-drive-live2d-with-vits-support)
+## [(已摆烂)EasyVtuber&手工皮套版本](https://github.com/Paraworks/audio-drive-live2d-with-vits-support)
 ## Why using api?
 本地能不能跑成gpt都是个问题，挂服务器上就成了一个可行措施，当然，你也可以在把自己的电脑当作api
 ## [Need Chatgpt instead?](https://www.youtube.com/watch?v=TdNSj_qgdFk)
