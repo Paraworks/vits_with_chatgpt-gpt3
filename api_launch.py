@@ -79,10 +79,8 @@ def gpt3_chat(text):
 def infer(text):
     sid = 0
     text = gpt3_chat(text)
-    with open(outdir + "/temp.txt", "w", encoding="utf-8") as f:
-        f.write(text)
     text = f"[JA]{text}[JA]" if is_japanese(text) else f"[ZH]{text}[ZH]"
-    seq = text_to_sequence(text, symbols=hps.symbols, cleaner_names=hps.data.text_cleaners)
+    seq = text_to_sequence(text, cleaner_names=hps.data.text_cleaners)
     #seq = text_to_sequence(text, cleaner_names=hps.data.text_cleaners)
     if hps.data.add_blank:
         seq = commons.intersperse(seq, 0)
@@ -107,9 +105,9 @@ def infer(text):
         print(spending_time)
         bytes_wav = bytes()
         byte_io = io.BytesIO(bytes_wav)
-        wavfile.write(outdir + '/temp2.wav',hps.data.sampling_rate, audio.astype(np.int16))
-        wav = AudioSegment.from_wav(outdir + '/temp2.wav')
-        wav.export(outdir +'/now2.ogg', format="ogg")
+        wavfile.write(outdir + '/temp1.wav',hps.data.sampling_rate, audio.astype(np.int16))
+        cmd = 'ffmpeg -y -i ' +  outdir + '/temp1.wav' + ' -ar 44100 '+ outdir + '/temp2.wav'
+        os.system(cmd)
     return text
 
 @app.route('/chat')
