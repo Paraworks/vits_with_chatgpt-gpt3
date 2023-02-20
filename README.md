@@ -59,7 +59,7 @@ symbols seq = text_to_sequence(text, symbols=hps.symbols, cleaner_names=hps.data
 #如不需要，把 symbols=hps.symbols 删掉
 ```
 # 已废弃：从release中下载前端，解压后直接运行
-Run basic.exe after exporting it from release
+删除 api_launch.py中的注释，恢复相关api
 ```sh
 #Input url after game or setting it in the basic/game/script.rpy: label setting0:
 $ web_base = renpy.input("输入后端api的地址，如本地推理为'http://127.0.0.1:8080'，终端运行inference_api.py时查看",length=100)
@@ -69,10 +69,33 @@ $ web_base = 'your_onw_web'
 ## [(已摆烂)EasyVtuber&手工皮套版本](https://github.com/Paraworks/audio-drive-live2d-with-vits-support)
 ## Why using api?
 本地能不能跑成gpt都是个问题，挂服务器上就成了一个可行措施，当然，你也可以在把自己的电脑当作api
-## [Need Chatgpt instead?](https://www.youtube.com/watch?v=TdNSj_qgdFk)
+## [Need smarter chatbot or Chatgpt instead?](https://www.youtube.com/watch?v=TdNSj_qgdFk)
 Using these codes to replace gpt3_chat(text)
 ```sh
-#CHATGPT抓取
+#目前采用的聊天方式，如需修改请自行搜索openai这个包
+def gpt3_chat(text):
+  call_name = "派蒙"
+  openai.api_key = args.key
+  identity = "用中文回答我的问题"
+  start_sequence = '\n'+str(call_name)+':'
+  restart_sequence = "\nYou: "
+  if 1 == 1:
+     prompt0 = text #当期prompt
+  if text == 'quit':
+     return prompt0
+  prompt = identity + prompt0 + start_sequence
+  response = openai.Completion.create(
+    model="text-davinci-003",
+    prompt=prompt,
+    temperature=0.5,
+    max_tokens=1000,
+    top_p=1.0,
+    frequency_penalty=0.5,
+    presence_penalty=0.0,
+    stop=["\nYou:"]
+  )
+  return response['choices'][0]['text'].strip()
+#CHATGPT调用，需安装chrome框架
 from pyChatGPT import ChatGPT
 session_token = '参考https://www.youtube.com/watch?v=TdNSj_qgdFk'
 api = ChatGPT(session_token)
