@@ -1,5 +1,5 @@
 ## 2023/2/10更新 vits-onnx 一键式启动
-## 2023/2/17更新 弃用renpy [采用桌宠版本](https://github.com/Arkueid/Live2DMascot)
+## 2023/2/17更新 弃用renpy [采用桌面应用版本](https://github.com/Arkueid/Live2DMascot)
 # 克隆[Live2DMascot](https://github.com/Arkueid/Live2DMascot)仓库后，修改config.json文件
 ```sh
 "ChatAPI" : 
@@ -186,4 +186,4 @@ label reply:
     show Character1 m03
     jump sense1
 ```
-# 关于vtuber及任何盈利目的,请使用拥有完整版权的语料库训练vits模型并且使用openai官方的api key
+# 关于vtuber及任何盈利目的,建议使用拥有完整版权的语料库训练vits模型并且使用openai官方的api key
