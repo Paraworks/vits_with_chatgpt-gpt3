@@ -57,7 +57,7 @@ line 85, in infer
 seq = text_to_sequence
 #需要你在这一行自行修改
 #如果需要
-symbols seq = text_to_sequence(text, symbols=hps.symbols, cleaner_names=hps.data.text_cleaners)
+seq = text_to_sequence(text, symbols=hps.symbols, cleaner_names=hps.data.text_cleaners)
 #如不需要，把 symbols=hps.symbols 删掉
 ```
 # 已废弃：从release中下载前端，解压后直接运行
