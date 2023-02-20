@@ -81,7 +81,7 @@ def infer(text):
     sid = 0
     text = gpt3_chat(text)
     text = f"[JA]{text}[JA]" if is_japanese(text) else f"[ZH]{text}[ZH]"
-    symbols = text_to_sequence(text, symbols=hps.symbols, cleaner_names=hps.data.text_cleaners)
+    seq = text_to_sequence(text, symbols=hps.symbols, cleaner_names=hps.data.text_cleaners)
     #seq = text_to_sequence(text, cleaner_names=hps.data.text_cleaners)
     if hps.data.add_blank:
         seq = commons.intersperse(seq, 0)
@@ -114,7 +114,8 @@ def infer(text):
 @app.route('/chat')
 def text_api():
     text = request.args.get('Text','')
-    text = infer(text).replace('[JA]','').replace('[ZH]','')
+    text = infer(text)
+    text = text.replace('[JA]','').replace('[ZH]','')
     with open(outdir +'/temp2.wav','rb') as bit:
         wav_bytes = bit.read()
     headers = {
