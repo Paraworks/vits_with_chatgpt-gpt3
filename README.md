@@ -49,6 +49,21 @@ python api_launch.py --key 'openapikey see: https://openai.com/api/'
 #部署到服务器以后的标准网页格式,http://yourhost:8080/
 #浏览器键入测试 http://yourhost:8080/chat?Text=测试测试
 #旧版本 http://yourhost:8080/gpt?text=测试测试
+#应用端用到的接口
+@app.route('/chat')
+def text_api():
+    text = request.args.get('Text','')
+    text = infer(text)
+    text = text.replace('[JA]','').replace('[ZH]','')
+    with open(outdir +'/temp2.wav','rb') as bit:
+        wav_bytes = bit.read()
+    headers = {
+        'Content-Type': 'audio/wav',
+        'Text': text.encode('utf-8')
+    }
+    return wav_bytes, 200, headers
+if __name__ == '__main__':
+   app.run("0.0.0.0", 8080) 
 ```
 # 对于 text_to_sequence相关错误
 ```sh
