@@ -76,7 +76,7 @@ def gpt3_chat(text):
     stop=["\nYou:"]
   )
   return response['choices'][0]['text'].strip()
-#注意:对于不同的cleaner是，需要自行修改symbols
+#注意:对于不同的cleaner，需要自行修改symbols
 def infer(text):
     sid = 0
     text = gpt3_chat(text)
