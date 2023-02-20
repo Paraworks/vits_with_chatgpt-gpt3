@@ -47,6 +47,8 @@ python api_launch.py --key 'openapikey see: https://openai.com/api/'
  #* Running on http://127.0.0.1:8080
  #* Running on http://172.16.5.4:8080
 #部署到服务器以后的标准网页格式,http://yourhost:8080/
+#浏览器键入测试 http://yourhost:8080/chat?Text=测试测试
+#旧版本 http://yourhost:8080/gpt?text=测试测试
 ```
 # 对于 text_to_sequence相关错误
 ```sh
