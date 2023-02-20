@@ -114,7 +114,7 @@ def infer(text):
 @app.route('/chat')
 def text_api():
     text = request.args.get('Text','')
-    text = infer(text)
+    text = infer(text).replace('[JA]','').replace('[ZH]','')
     with open(outdir +'/temp2.wav','rb') as bit:
         wav_bytes = bit.read()
     headers = {
@@ -124,7 +124,8 @@ def text_api():
     return wav_bytes, 200, headers
 if __name__ == '__main__':
    app.run("0.0.0.0", 8080) 
-'''       
+
+'''basic版删除注释       
 @app.route('/gpt')
 def text_api():
     text = request.args.get('text','')
