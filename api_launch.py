@@ -79,7 +79,6 @@ def gpt3_chat(text):
 #注意:对于不同的cleaner，需要自行修改symbols
 def infer(text):
     sid = 0
-    text = gpt3_chat(text)
     text = f"[JA]{text}[JA]" if is_japanese(text) else f"[ZH]{text}[ZH]"
     seq = text_to_sequence(text, symbols=hps.symbols, cleaner_names=hps.data.text_cleaners)
     #seq = text_to_sequence(text, cleaner_names=hps.data.text_cleaners)
@@ -111,9 +110,10 @@ def infer(text):
         os.system(cmd)
     return text
 
-@app.route('/chat')
+@app.route('/gpt?')
 def text_api():
     text = request.args.get('Text','')
+    text = gpt3_chat(text)
     text = infer(text)
     text = text.replace('[JA]','').replace('[ZH]','')
     with open(outdir +'/temp2.wav','rb') as bit:
@@ -122,6 +122,26 @@ def text_api():
         'Content-Type': 'audio/wav',
         'Text': text.encode('utf-8')
     }
+    return wav_bytes, 200, headers
+if __name__ == '__main__':
+   app.run("0.0.0.0", 8080) 
+
+
+messages = [{"role": "system", "content": "你是温柔体贴的vtuber。"},]
+@app.route('/chat')
+def text_api():
+    openai.api_key = args.key
+    message = request.args.get('Text','')
+    messages.append({"role": "user", "content": message},)
+    chat = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
+    reply = chat.choices[0].message.content
+    text = infer(reply)
+    text = text.replace('[JA]','').replace('[ZH]','')
+    with open(outdir +'/temp2.wav','rb') as bit:
+        wav_bytes = bit.read()
+    headers = {
+            'Content-Type': 'audio/wav',
+            'Text': text.encode('utf-8')}
     return wav_bytes, 200, headers
 if __name__ == '__main__':
    app.run("0.0.0.0", 8080) 
