@@ -1,5 +1,6 @@
 ## 2023/2/10更新 vits-onnx 一键式启动
 ## 2023/2/17更新 弃用renpy [采用桌面应用版本](https://github.com/Arkueid/Live2DMascot)
+## 2023/3/3更新 接入官方的chatgpt
 # 克隆[Live2DMascot](https://github.com/Arkueid/Live2DMascot)仓库后，修改config.json文件
 ```sh
 "ChatAPI" : 
@@ -49,10 +50,11 @@ python api_launch.py --key 'openapikey see: https://openai.com/api/'
 #部署到服务器以后的标准网页格式,http://yourhost:8080/
 #浏览器键入测试 http://yourhost:8080/chat?Text=测试测试
 #旧版本 http://yourhost:8080/gpt?text=测试测试
-#应用端用到的接口
-@app.route('/chat')
+#接口的具体展示，后者是chatgpt，也就是默认端
+@app.route('/gpt?')
 def text_api():
     text = request.args.get('Text','')
+    text = gpt3_chat(text)
     text = infer(text)
     text = text.replace('[JA]','').replace('[ZH]','')
     with open(outdir +'/temp2.wav','rb') as bit:
@@ -61,6 +63,26 @@ def text_api():
         'Content-Type': 'audio/wav',
         'Text': text.encode('utf-8')
     }
+    return wav_bytes, 200, headers
+if __name__ == '__main__':
+   app.run("0.0.0.0", 8080) 
+
+
+messages = [{"role": "system", "content": "你是温柔体贴的vtuber。"},]
+@app.route('/chat')
+def text_api():
+    openai.api_key = args.key
+    message = request.args.get('Text','')
+    messages.append({"role": "user", "content": message},)
+    chat = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
+    reply = chat.choices[0].message.content
+    text = infer(reply)
+    text = text.replace('[JA]','').replace('[ZH]','')
+    with open(outdir +'/temp2.wav','rb') as bit:
+        wav_bytes = bit.read()
+    headers = {
+            'Content-Type': 'audio/wav',
+            'Text': text.encode('utf-8')}
     return wav_bytes, 200, headers
 if __name__ == '__main__':
    app.run("0.0.0.0", 8080) 
@@ -83,43 +105,6 @@ $ web_base = renpy.input("输入后端api的地址，如本地推理为'http://1
 #Replace it to:
 $ web_base = 'your_onw_web'
 ```
-## [(已摆烂)EasyVtuber&手工皮套版本](https://github.com/Paraworks/audio-drive-live2d-with-vits-support)
-## Why using api?
-本地能不能跑成gpt都是个问题，挂服务器上就成了一个可行措施，当然，你也可以在把自己的电脑当作api
-## [Need smarter chatbot or Chatgpt instead?](https://www.youtube.com/watch?v=TdNSj_qgdFk)
-Using these codes to replace gpt3_chat(text)
-```sh
-#目前采用的聊天方式，如需修改请自行搜索openai这个包
-def gpt3_chat(text):
-  call_name = "派蒙"
-  openai.api_key = args.key
-  identity = "用中文回答我的问题"
-  start_sequence = '\n'+str(call_name)+':'
-  restart_sequence = "\nYou: "
-  if 1 == 1:
-     prompt0 = text #当期prompt
-  if text == 'quit':
-     return prompt0
-  prompt = identity + prompt0 + start_sequence
-  response = openai.Completion.create(
-    model="text-davinci-003",
-    prompt=prompt,
-    temperature=0.5,
-    max_tokens=1000,
-    top_p=1.0,
-    frequency_penalty=0.5,
-    presence_penalty=0.0,
-    stop=["\nYou:"]
-  )
-  return response['choices'][0]['text'].strip()
-#CHATGPT调用，需安装chrome框架
-from pyChatGPT import ChatGPT
-session_token = '参考https://www.youtube.com/watch?v=TdNSj_qgdFk'
-api = ChatGPT(session_token)
-response_from_chatgpt = api.send_message(text)
-text= response_from_chatgpt['message'].replace('\n','').replace(' ','')
-```
-这可以让bot更加智能，代价是非常不稳定
 ## What to do with game?
 [Official website of RenPy](https://www.renpy.org/)
 You can follow the instructions and beautify your game, can take my game given as a reference.
