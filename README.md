@@ -22,6 +22,15 @@ mkdir moe
 python inference_api.py
 ```
 # [绿皮思路chat](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/main/inference_ork.py)
+本质上只需在你的vits项目中加入inference_ork.py这个小文件，然后启动它。注意，需要你能够在自己的windows上部署vits项目，推荐安装好cuda，[教程
+](https://www.bilibili.com/video/BV13t4y1V7DV/?spm_id_from=333.337.search-card.all.click&vd_source=7e8cf9f5c840ec4789ccb5657b2f0512)
+```sh
+#example Nijigasaki
+git clone https://huggingface.co/spaces/Mahiruoshi/Lovelive_Nijigasaki_VITS
+cd Lovelive_Nijigasaki_VITS
+pip install -r requirements.txt
+python inference_ork.py
+```
 许多live2d都有触碰事件，那么，只需要有一个装载有完整cubism for native功能的live2d播放器,其可以支持点击事件并且支持对口型功能。
 此时只需要启动 inference_ork.py
 ```sh
@@ -40,9 +49,16 @@ parser.add_argument('--audio',
         },
         {
           "File": "motions/a.motion3.json",
-          "Sound": "sounds/temp.wav",
+          "Sound": "sounds/temp2.wav",
+          "Text": "ﾋﾄﾘﾀﾞｹﾅﾝﾃｴﾗﾍﾞﾅｲﾖｰ"
+        }，
+	{
+          "File": "motions/a.motion3.json",
+          "Sound": "sounds/temp3.wav",
           "Text": "ﾋﾄﾘﾀﾞｹﾅﾝﾃｴﾗﾍﾞﾅｲﾖｰ"
         }
+	......]
+	
 ```
 这样做的本质是让这个绿皮程序不断修改音频文件
 ```sh
