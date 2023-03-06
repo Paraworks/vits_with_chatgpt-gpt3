@@ -13,7 +13,7 @@
 		"Route" : "/chat"  //路径
 	},
 ```
-# 下一步：server端启动后端api程序(Windows也可以)
+# 选择1：server端启动后端api程序(Windows也可以)
 ## Combining chatgpt/gpt3&vits as api and launch it（Server suggested）
 将[inference_api.py](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/main/inference_api.py)丢入你的vits项目或moegoe项目中
 ```sh
@@ -21,8 +21,8 @@ cd vits
 mkdir moe
 python inference_api.py
 ```
-# [绿皮思路chat](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/main/inference_ork.py)
-本质上只需在你的vits项目中加入inference_ork.py这个小文件，然后启动它。注意，需要你能够在自己的windows上部署vits项目，推荐安装好cuda，[教程
+# 选择2：[绿皮思路chat](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/main/inference_ork.py)
+支持从外部启动任何正在运行的live2d模型，比如说修改点击事件的对应音频来实现。只需在你的vits项目中加入inference_ork.py这个小文件，然后启动它。注意，需要你能够在自己的windows上部署vits项目，推荐安装好cuda，[教程
 ](https://www.bilibili.com/video/BV13t4y1V7DV/?spm_id_from=333.337.search-card.all.click&vd_source=7e8cf9f5c840ec4789ccb5657b2f0512)
 ```sh
 #example Nijigasaki
@@ -33,6 +33,7 @@ python inference_ork.py
 ```
 许多live2d都有触碰事件，那么，只需要有一个装载有完整cubism for native功能的live2d播放器,其可以支持点击事件并且支持对口型功能。
 此时只需要启动 inference_ork.py
+![Image text](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/main/T9B%25SY%7B%7BGY5I%600K5P7A4AUC.png)
 ```sh
 #在程序中将audio参数修改为触碰动作的音频路径
 #比如
