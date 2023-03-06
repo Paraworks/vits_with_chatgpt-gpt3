@@ -1,7 +1,8 @@
 ## 2023/2/10更新 vits-onnx 一键式启动
 ## 2023/2/17更新 弃用renpy [采用桌面应用版本](https://github.com/Arkueid/Live2DMascot)
 ## 2023/3/3更新 接入官方的chatgpt
-# 克隆[Live2DMascot](https://github.com/Arkueid/Live2DMascot)仓库后，修改config.json文件
+# 此分支为vits模型onnx导出版，[原版vits](https://github.com/Paraworks/vits_with_chatgpt-gpt3/tree/main)
+# 步骤1，启用前端应用，克隆[Live2DMascot](https://github.com/Arkueid/Live2DMascot)仓库后，修改config.json文件
 ```sh
 "ChatAPI" : 
 {
@@ -50,7 +51,9 @@ python api_launch.py --key 'openapikey see: https://openai.com/api/'
 #部署到服务器以后的标准网页格式,http://yourhost:8080/
 #浏览器键入测试 http://yourhost:8080/chat?Text=测试测试
 #旧版本 http://yourhost:8080/gpt?text=测试测试
-#接口的具体展示，后者是chatgpt，也就是默认端
+```
+# 接口的具体展示，后者是chatgpt，也就是默认端
+```sh
 @app.route('/gpt?')
 def text_api():
     text = request.args.get('Text','')
