@@ -191,4 +191,5 @@ label reply:
     show Character1 m03
     jump sense1
 ```
-# 关于vtuber及任何盈利目的,建议使用拥有完整版权的语料库训练vits模型并且使用openai官方的api key
+#由于openai将扩大对非官方api的打压力度，如以盈利为目的，建议采用官方的api key以及openai标准库
+(私下里还是建议省钱滴)
