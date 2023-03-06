@@ -26,7 +26,7 @@ python inference_api.py
 支持从外部启动任何正在运行的live2d模型，比如说修改点击事件的对应音频来实现。只需在你的vits项目中加入inference_ork.py这个小文件，然后启动它。注意，需要你能够在自己的windows上部署vits项目，推荐安装好cuda，[教程
 ](https://www.bilibili.com/video/BV13t4y1V7DV/?spm_id_from=333.337.search-card.all.click&vd_source=7e8cf9f5c840ec4789ccb5657b2f0512)
 ```sh
-#example Nijigasaki
+# Nijigasaki COC跑团版
 git clone https://huggingface.co/spaces/Mahiruoshi/Lovelive_Nijigasaki_VITS
 cd Lovelive_Nijigasaki_VITS
 pip install -r requirements.txt
