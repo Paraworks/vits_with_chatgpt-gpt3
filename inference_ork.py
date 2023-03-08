@@ -83,9 +83,14 @@ messages = [
     ]
 '''
 messages = []
-#会在该路径下创建一个log.txt日志，里面记载着当前的聊天存档，可随时重新加载
+read_log = input('Loading log?(y/n)')
+if read_log == 'y':
+    messages = []
+    with open('log.pickle', 'rb') as f:
+        messages = pickle.load(f)
+    print('Most recently log:\n'+str(messages[-1]))
 def send_message():
-    text = input_box.get("1.0", "end-1c") 
+    text = input_box.get("1.0", "end-1c") # 获取用户输入的文本
     messages.append({"role": "user", "content": text},)
     chat = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
     reply = chat.choices[0].message.content
@@ -95,14 +100,13 @@ def send_message():
     if len(messages) == 12:
         messages[6:10] = messages[8:]
         del messages[-2:]
-    with open('log.txt', 'w', encoding='utf-8') as f:
-        for item in messages:
-            f.write(str(item) + "\n")
+    with open('log.pickle', 'wb') as f:
+         pickle.dump(messages, f)
     chat_box.configure(state='normal') 
-    chat_box.insert(tk.END, "You: " + text + "\n")
+    chat_box.insert(tk.END, "You: " + text + "\n") 
     chat_box.insert(tk.END, "Tamao: " + reply + "\n") 
-    chat_box.configure(state='disabled')
-    input_box.delete("1.0", tk.END)
+    chat_box.configure(state='disabled') 
+    input_box.delete("1.0", tk.END) 
 
 root = tk.Tk()
 root.title("Tamao")
