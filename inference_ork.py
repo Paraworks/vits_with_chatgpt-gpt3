@@ -18,6 +18,7 @@ from tkinter import scrolledtext
 import argparse
 import time
 from scipy.io.wavfile import write
+import pickle
 def get_args():
     parser = argparse.ArgumentParser(description='inference')
     parser.add_argument('--model', default = 'lovelive/G_817000.pth')
@@ -76,12 +77,6 @@ def ttv(text):
     print("推理耗时:",(t2 - t1),"s")
 openai.api_key = args.key
 result_list = []
-'''
-messages = [
-    {"role": "system", "content": "你是超级ai，名字叫巴珠绪。接下来我们将进行一个克苏鲁跑团游戏，你负责扮演守密人，我负责扮演调查员。接下来你会加载一个名叫《幽暗之门》的模组，作为守密人，你需要基于“克苏鲁神话角色扮演游戏规则第七版（Call of Cthulhu 7th Edition）”，我会给你剧本的开头部分，然后基于你对它的理解自由发挥。投掷骰子的环节将由你来模拟，用两个1d10的骰子来生成0-100的随机数。比如说我的某一项属性点是80，当骰子的数目小于80时就判定为成功，0-5为大成功，95-100为大失败等等。整个游戏过程将类似于你来描述故事，我来投骰子并且做出决定来推动剧情的走向。"},
-    {'role': 'assistant', 'content': '我明白了，现在我将扮演守密人。'},
-    ]
-'''
 messages = []
 read_log = input('Loading log?(y/n)')
 if read_log == 'y':
