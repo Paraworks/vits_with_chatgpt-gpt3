@@ -97,7 +97,7 @@ def text_api():
     if message == 'clear':
       history = []
     else:
-      response, history = model.chat(tokenizer, message, history=history)
+      response, history = model.chat(tokenizer, message, history)
       text = infer(response)
       text = text.replace('[JA]','').replace('[ZH]','')
       with open(outdir +'/temp2.wav','rb') as bit:
