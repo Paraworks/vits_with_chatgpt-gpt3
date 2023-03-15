@@ -29,7 +29,7 @@
 ## III.下载[model.onnx](https://huggingface.co/Mahiruoshi/vits_onnx_model/tree/main)后放入moe文件夹
 # 如果只采用chatgpt则跳过此步
 ## IV.按照教程，将清华的[开源语音模型](https://github.com/THUDM/ChatGLM-6B)下载下来后全部放进moe文件夹中，[huggingface](https://huggingface.co/THUDM/chatglm-6b)
-最后你的moe文件夹应该长这样,纯vits只需model.onnx与config_v.py
+最后你的moe文件夹应该长这样,纯vits只需model.onnx与config_v.json
 ![Image text](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/onnx/moe%202023_3_16%201_13_45.png)
 ```sh
 cd moe
@@ -72,7 +72,7 @@ pip install -r requirements.txt
 #after uploading onnx models and edit it in the api_launch.py, launch
 #Reference
 #('--onnx_model', default = './moe/model.onnx')
-#('--cfg', default="./moe/config.json")
+#('--cfg', default="./moe/config_v.json")
 #('--outdir', default="./moe",help='ouput directory')
 #('--key',default = "你的openai key",help='openai api key')
 python api_launch.py --key 'openapikey see: https://openai.com/api/'
