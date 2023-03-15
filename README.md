@@ -22,7 +22,7 @@
 [来源](https://gitee.com/ccdesue/vits_web_demo)
 [该仓库使用的模型(Onnx model example)](https://huggingface.co/Mahiruoshi/vits_onnx_model/tree/main)
 [替换text文件夹以适配不同模型(Change text folder)](https://github.com/Paraworks/vits_with_chatgpt-gpt3/tree/onnx/text)
-# 完全本地化,windows部署流程，要求拥有8G现存的N卡
+# 完全本地化,windows部署流程,要求N卡
 [Torch+gpu](https://blog.csdn.net/qq_44173699/article/details/126312680)
 [cmake及pyopenjtalk安装](https://www.bilibili.com/video/BV13t4y1V7DV/?spm_id_from=333.880.my_history.page.click)
 下载[model.onnx](https://huggingface.co/Mahiruoshi/vits_onnx_model/tree/main)后放入moe文件夹
