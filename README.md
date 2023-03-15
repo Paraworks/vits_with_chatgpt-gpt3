@@ -1,7 +1,7 @@
 ## 2023/2/10更新 vits-onnx 一键式启动
 ## 2023/2/17更新 弃用renpy [采用桌面应用版本](https://github.com/Arkueid/Live2DMascot)
 ## 2023/3/3更新 接入官方的chatgpt
-## 2023/3/15更新 完全本地化，[清华大学ChatGLM-6B](https://github.com/THUDM/ChatGLM-6B)
+## 2023/3/15更新 完全本地化，采用[清华ChatGLM-6B](https://github.com/THUDM/ChatGLM-6B)
 # 此分支为vits模型onnx导出版，[原版vits](https://github.com/Paraworks/vits_with_chatgpt-gpt3/tree/main)
 # 步骤1，启用前端应用，克隆[Live2DMascot](https://github.com/Arkueid/Live2DMascot)仓库后，修改config.json文件
 ```sh
@@ -26,13 +26,93 @@
 [Torch+gpu](https://blog.csdn.net/qq_44173699/article/details/126312680)
 [cmake及pyopenjtalk安装](https://www.bilibili.com/video/BV13t4y1V7DV/?spm_id_from=333.880.my_history.page.click)
 下载[model.onnx](https://huggingface.co/Mahiruoshi/vits_onnx_model/tree/main)后放入moe文件夹
-按照教程，将清华大学的[开源语音模型](https://github.com/THUDM/ChatGLM-6B)下载下来后全部放进moe文件夹中，[huggingface](https://huggingface.co/THUDM/chatglm-6b)
+按照教程，将清华的[开源语音模型](https://github.com/THUDM/ChatGLM-6B)下载下来后全部放进moe文件夹中，[huggingface](https://huggingface.co/THUDM/chatglm-6b)
 ```sh
 cd moe
 pip install -r requirements.txt
 cd ..
-#采用最低配置，如有需要可以按照官方教程修改。为了防止炸显存，推荐tts端采用onnx的cpu推理
+#默认最低配置，如有需要可以按照官方教程修改。为了防止炸显存，推荐tts端采用onnx的cpu推理
 python loacl_chat.py 
+```
+```sh
+修改配置文件来更换模型
+def get_args():
+    parser = argparse.ArgumentParser(description='inference')
+    parser.add_argument('--onnx_model', default = './moe/model.onnx')
+    parser.add_argument('--cfg', default="./moe/config_v.json")
+    parser.add_argument('--outdir', default="./moe",
+                        help='ouput folder')
+    parser.add_argument('--ChatGLM',default = "./moe",
+                        help='https://github.com/THUDM/ChatGLM-6B')
+    args = parser.parse_args()
+    return args
+```
+```sh
+#聊天机器人生成回复的代码
+tokenizer = AutoTokenizer.from_pretrained(args.ChatGLM, trust_remote_code=True)
+#8G GPU
+model = AutoModel.from_pretrained(args.ChatGLM, trust_remote_code=True).half().quantize(4).cuda()
+history = []
+@app.route('/chat')
+def text_api():
+    global history
+    message = request.args.get('Text','')
+    t1 = time.time()
+    if message == 'clear':
+      history = []
+    else:
+      response, new_history = model.chat(tokenizer, message, history)
+      response = response.replace(" ",'').replace("\n",'.')
+      text = infer(response)
+      text = text.replace('[JA]','').replace('[ZH]','')
+      with open(outdir +'/temp2.wav','rb') as bit:
+          wav_bytes = bit.read()
+      headers = {
+            'Content-Type': 'audio/wav',
+            'Text': text.encode('utf-8')}
+      history = new_history
+      t2 = time.time()
+      spending_time = "总耗时："+str(t2-t1)+"s" 
+      print(spending_time)
+      return wav_bytes, 200, headers
+if __name__ == '__main__':
+   app.run("0.0.0.0", 8080)
+```
+```sh
+#TTS用到的代码，修改sid来更换角色，更换模型
+def infer(text):
+    #选择你想要的角色
+    sid = 3
+    text = f"[JA]{text}[JA]" if is_japanese(text) else f"[ZH]{text}[ZH]"
+    seq = text_to_sequence(text, symbols=hps.symbols, cleaner_names=hps.data.text_cleaners)
+    #seq = text_to_sequence(text, cleaner_names=hps.data.text_cleaners)
+    if hps.data.add_blank:
+        seq = commons.intersperse(seq, 0)
+    with torch.no_grad():
+        x = np.array([seq], dtype=np.int64)
+        x_len = np.array([x.shape[1]], dtype=np.int64)
+        sid = np.array([sid], dtype=np.int64)
+        scales = np.array([0.667, 0.8, 1], dtype=np.float32)
+        scales.resize(1, 3)
+        ort_inputs = {
+                    'input': x,
+                    'input_lengths': x_len,
+                    'scales': scales,
+                    'sid': sid
+                }
+        t1 = time.time()
+        audio = np.squeeze(ort_sess.run(None, ort_inputs))
+        audio *= 32767.0 / max(0.01, np.max(np.abs(audio))) * 0.6
+        audio = np.clip(audio, -32767.0, 32767.0)
+        t2 = time.time()
+        spending_time = "推理时间："+str(t2-t1)+"s" 
+        print(spending_time)
+        bytes_wav = bytes()
+        byte_io = io.BytesIO(bytes_wav)
+        wavfile.write(outdir + '/temp1.wav',hps.data.sampling_rate, audio.astype(np.int16))
+        cmd = 'ffmpeg -y -i ' +  outdir + '/temp1.wav' + ' -ar 44100 '+ outdir + '/temp2.wav'
+        os.system(cmd)
+    return text
 ```
 # chatgpt+服务器部署
 ```sh
