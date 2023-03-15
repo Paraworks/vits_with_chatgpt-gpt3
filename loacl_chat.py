@@ -93,6 +93,7 @@ model = AutoModel.from_pretrained(args.ChatGLM, trust_remote_code=True).half().q
 history = []
 @app.route('/chat')
 def text_api():
+    global history
     message = request.args.get('Text','')
     if message == 'clear':
       history = []
