@@ -21,7 +21,7 @@ mutex = threading.Lock()
 def get_args():
     parser = argparse.ArgumentParser(description='inference')
     parser.add_argument('--onnx_model', default = './moe/model.onnx')
-    parser.add_argument('--cfg', default="./moe/config.json")
+    parser.add_argument('--cfg', default="./moe/config_v.json")
     parser.add_argument('--outdir', default="./moe",
                         help='ouput directory')
     parser.add_argument('--key',default = "your openai key",
