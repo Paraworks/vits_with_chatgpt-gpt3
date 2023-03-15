@@ -21,7 +21,7 @@ mutex = threading.Lock()
 def get_args():
     parser = argparse.ArgumentParser(description='inference')
     parser.add_argument('--onnx_model', default = './moe/model.onnx')
-    parser.add_argument('--cfg', default="./moe/config.json")
+    parser.add_argument('--cfg', default="./moe/config_v.json")
     parser.add_argument('--outdir', default="./moe",
                         help='ouput folder')
     parser.add_argument('--ChatGLM',default = "./moe",
@@ -56,7 +56,8 @@ def is_japanese(string):
 
 #注意:对于不同的cleaner，需要自行修改symbols
 def infer(text):
-    sid = 0
+    #选择你想要的角色
+    sid = 3
     text = f"[JA]{text}[JA]" if is_japanese(text) else f"[ZH]{text}[ZH]"
     seq = text_to_sequence(text, symbols=hps.symbols, cleaner_names=hps.data.text_cleaners)
     #seq = text_to_sequence(text, cleaner_names=hps.data.text_cleaners)
@@ -95,10 +96,12 @@ history = []
 def text_api():
     global history
     message = request.args.get('Text','')
+    t1 = time.time()
     if message == 'clear':
       history = []
     else:
-      response, history = model.chat(tokenizer, message, history)
+      response, new_history = model.chat(tokenizer, message, history)
+      response = response.replace(" ",'').replace("\n",'.')
       text = infer(response)
       text = text.replace('[JA]','').replace('[ZH]','')
       with open(outdir +'/temp2.wav','rb') as bit:
@@ -106,6 +109,10 @@ def text_api():
       headers = {
             'Content-Type': 'audio/wav',
             'Text': text.encode('utf-8')}
+      history = new_history
+      t2 = time.time()
+      spending_time = "总耗时："+str(t2-t1)+"s" 
+      print(spending_time)
       return wav_bytes, 200, headers
 if __name__ == '__main__':
    app.run("0.0.0.0", 8080) 
