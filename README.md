@@ -23,16 +23,18 @@
 [该仓库使用的模型(Onnx model example)](https://huggingface.co/Mahiruoshi/vits_onnx_model/tree/main)
 [替换text文件夹以适配不同模型(Change text folder)](https://github.com/Paraworks/vits_with_chatgpt-gpt3/tree/onnx/text)
 # 完全本地化,windows部署流程,建议30系以上N卡，或者cpu
-[Torch+gpu](https://blog.csdn.net/qq_44173699/article/details/126312680)
-[cmake及pyopenjtalk安装](https://www.bilibili.com/video/BV13t4y1V7DV/?spm_id_from=333.880.my_history.page.click)
-下载[model.onnx](https://huggingface.co/Mahiruoshi/vits_onnx_model/tree/main)后放入moe文件夹
-按照教程，将清华的[开源语音模型](https://github.com/THUDM/ChatGLM-6B)下载下来后全部放进moe文件夹中，[huggingface](https://huggingface.co/THUDM/chatglm-6b)
+## 安装[FFmpeg](https://zhuanlan.zhihu.com/p/118362010)并且添加环境变量
+## I.安装[Torch+gpu](https://blog.csdn.net/qq_44173699/article/details/126312680)
+## II.[cmake及pyopenjtalk安装](https://www.bilibili.com/video/BV13t4y1V7DV/?spm_id_from=333.880.my_history.page.click)
+## III.下载[model.onnx](https://huggingface.co/Mahiruoshi/vits_onnx_model/tree/main)后放入moe文件夹
+## IV.按照教程，将清华的[开源语音模型](https://github.com/THUDM/ChatGLM-6B)下载下来后全部放进moe文件夹中，[huggingface](https://huggingface.co/THUDM/chatglm-6b)
 ```sh
 cd moe
 pip install -r requirements.txt
 cd ..
 #默认最低配置，如有需要可以按照官方教程修改。为了防止炸显存，推荐tts端采用onnx的cpu推理
 python loacl_chat.py 
+#chatgpt则运行 api_launch.py
 ```
 ```sh
 修改配置文件来更换模型
