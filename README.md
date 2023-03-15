@@ -1,6 +1,7 @@
 ## 2023/2/10更新 vits-onnx 一键式启动
 ## 2023/2/17更新 弃用renpy [采用桌面应用版本](https://github.com/Arkueid/Live2DMascot)
 ## 2023/3/3更新 接入官方的chatgpt
+## 2023/3/15更新 完全本地化，[清华大学ChatGLM-6B](https://github.com/THUDM/ChatGLM-6B)
 # 此分支为vits模型onnx导出版，[原版vits](https://github.com/Paraworks/vits_with_chatgpt-gpt3/tree/main)
 # 步骤1，启用前端应用，克隆[Live2DMascot](https://github.com/Arkueid/Live2DMascot)仓库后，修改config.json文件
 ```sh
@@ -21,6 +22,19 @@
 [来源](https://gitee.com/ccdesue/vits_web_demo)
 [该仓库使用的模型(Onnx model example)](https://huggingface.co/Mahiruoshi/vits_onnx_model/tree/main)
 [替换text文件夹以适配不同模型(Change text folder)](https://github.com/Paraworks/vits_with_chatgpt-gpt3/tree/onnx/text)
+# 完全本地化,windows部署流程，要求拥有8G现存的N卡
+[Torch+gpu](https://blog.csdn.net/qq_44173699/article/details/126312680)
+[cmake及pyopenjtalk安装](https://www.bilibili.com/video/BV13t4y1V7DV/?spm_id_from=333.880.my_history.page.click)
+下载[model.onnx](https://huggingface.co/Mahiruoshi/vits_onnx_model/tree/main)后放入moe文件夹
+按照教程，将清华大学的[开源语音模型](https://github.com/THUDM/ChatGLM-6B)下载下来后全部放进moe文件夹中，[huggingface](https://huggingface.co/THUDM/chatglm-6b)
+```sh
+cd moe
+pip install -r requirements.txt
+cd ..
+#采用最低配置，如有需要可以按照官方教程修改。为了防止炸显存，推荐tts端采用onnx的cpu推理
+python loacl_chat.py 
+```
+# chatgpt+服务器部署
 ```sh
 #核心思路:服务器部署api，完成主要工作
 #Click Code && codespaces and start
