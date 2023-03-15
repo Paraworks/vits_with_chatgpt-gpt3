@@ -135,6 +135,7 @@ def text_api():
     messages.append({"role": "user", "content": message},)
     chat = openai.ChatCompletion.create(model="gpt-3.5-turbo", messages=messages)
     reply = chat.choices[0].message.content
+    reply = reply.replace('\n','').replace(' ','')
     text = infer(reply)
     text = text.replace('[JA]','').replace('[ZH]','')
     with open(outdir +'/temp2.wav','rb') as bit:
