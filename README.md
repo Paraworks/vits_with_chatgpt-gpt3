@@ -36,8 +36,8 @@ cd moe
 pip install -r requirements.txt
 cd ..
 #默认最低配置，如有需要可以按照官方教程修改。为了防止炸显存，推荐tts端采用onnx的cpu推理
-python local_chat.py 
-#python api_launch.py --key your_openai_api_key
+python local_chat.py --ChatGLM path/to/dic_of_ChatGLM-6B
+#python api_launch.py --key your_openai_api_key --onnx_model path/to/model.onnx --cfg path/to/config_of_vits.json
 ```
 ```sh
 修改配置文件来更换模型
