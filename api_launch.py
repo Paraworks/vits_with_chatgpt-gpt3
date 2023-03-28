@@ -53,29 +53,7 @@ def is_japanese(string):
             if ord(ch) > 0x3040 and ord(ch) < 0x30FF:
                 return True
         return False 
-
-def gpt3_chat(text):
-  call_name = "派蒙"
-  openai.api_key = args.key
-  identity = "用中文回答我的问题"
-  start_sequence = '\n'+str(call_name)+':'
-  restart_sequence = "\nYou: "
-  if 1 == 1:
-     prompt0 = text #当期prompt
-  if text == 'quit':
-     return prompt0
-  prompt = identity + prompt0 + start_sequence
-  response = openai.Completion.create(
-    model="text-davinci-003",
-    prompt=prompt,
-    temperature=0.5,
-    max_tokens=1000,
-    top_p=1.0,
-    frequency_penalty=0.5,
-    presence_penalty=0.0,
-    stop=["\nYou:"]
-  )
-  return response['choices'][0]['text'].strip()
+    
 #注意:对于不同的cleaner，需要自行修改symbols
 def infer(text):
     sid = 0
@@ -110,22 +88,6 @@ def infer(text):
         os.system(cmd)
     return text
 
-@app.route('/gpt?')
-def text_api():
-    text = request.args.get('Text','')
-    text = gpt3_chat(text)
-    text = infer(text)
-    text = text.replace('[JA]','').replace('[ZH]','')
-    with open(outdir +'/temp2.wav','rb') as bit:
-        wav_bytes = bit.read()
-    headers = {
-        'Content-Type': 'audio/wav',
-        'Text': text.encode('utf-8')
-    }
-    return wav_bytes, 200, headers
-if __name__ == '__main__':
-   app.run("0.0.0.0", 8080) 
-
 
 messages = [{"role": "system", "content": "你是温柔体贴的vtuber。"},]
 @app.route('/chat')
@@ -146,20 +108,3 @@ def text_api():
     return wav_bytes, 200, headers
 if __name__ == '__main__':
    app.run("0.0.0.0", 8080) 
-
-'''basic版删除注释       
-@app.route('/gpt')
-def text_api():
-    text = request.args.get('text','')
-    infer(text)
-    with open(outdir +'/now2.ogg','rb') as bit:
-        wav_bytes = bit.read()
-    return wav_bytes, 200, {'Content-Type': 'audio/ogg'}
-@app.route('/word')
-def show():
-    with open(outdir + "/temp.txt","r", encoding="utf-8") as f1:
-        text = f1.read()
-        return text.replace('[JA]','').replace('[ZH]','')
-if __name__ == '__main__':
-   app.run("0.0.0.0", 8080)
-'''
