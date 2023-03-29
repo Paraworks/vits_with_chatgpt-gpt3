@@ -32,7 +32,8 @@ conda activate chatbot
 git clone https://huggingface.co/Mahiruoshi/vits_with_chatbot
 cd vits_with_chatbot
 pip install -r requirements.txt
-#控制面板兼启动文件
+```
+# 控制面板兼启动文件
 python main.py
 # * Running on http://127.0.0.1:8080
 # * Running on http://172.16.5.4:8080
