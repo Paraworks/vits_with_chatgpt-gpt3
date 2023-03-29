@@ -40,6 +40,17 @@ python main.py
 #Running on local URL:  http://127.0.0.1:7860
 #端口号7860是面板，8080是api
 ```
+## Window
+# I 安装[FFmpeg](https://zhuanlan.zhihu.com/p/118362010)并且添加环境变量
+## II.安装[Torch+gpu](https://blog.csdn.net/qq_44173699/article/details/126312680)(如需cpu推理则跳过)
+## III.[cmake及pyopenjtalk安装(可略过)](https://www.bilibili.com/video/BV13t4y1V7DV/?spm_id_from=333.880.my_history.page.click)
+## IV.同linux一样创建虚拟环境后 
+```sh
+git clone https://huggingface.co/Mahiruoshi/vits_with_chatbot
+cd vits_with_chatbot
+pip install -r requirements.txt
+python main.py
+```
 # 面板说明
 ## 完成chatbot方式选择及vits模型加载
 ![Image text](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/onnx/moe/p2.png)
