@@ -61,7 +61,6 @@ python main.py
 方法：将路径或者api key填写进文本框中
 ## 测试api是否启动
 ![Image text](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/onnx/moe/p3.png)
-#如果需要
-seq = text_to_sequence(text, symbols=hps.symbols, cleaner_names=hps.data.text_cleaners)
-
+# [添加vits模型](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/onnx/checkpoints/README.md)
+# [onnx导出程序，克隆该仓库后运行](https://huggingface.co/Mahiruoshi/vits_with_chatbot/blob/main/export_onnx.py)
 # 由于openai将扩大对非官方api的打压力度，如以盈利为目的，建议采用官方的api key以及openai标准库
