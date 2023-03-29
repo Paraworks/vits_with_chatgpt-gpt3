@@ -41,9 +41,12 @@ python main.py
 #端口号7860是面板，8080是api
 ```
 ## Window
-# I 安装[FFmpeg](https://zhuanlan.zhihu.com/p/118362010)并且添加环境变量
+## I 安装[FFmpeg](https://zhuanlan.zhihu.com/p/118362010)并且添加环境变量
 ## II.安装[Torch+gpu](https://blog.csdn.net/qq_44173699/article/details/126312680)(如需cpu推理则跳过)
 ## III.[cmake及pyopenjtalk安装(可略过)](https://www.bilibili.com/video/BV13t4y1V7DV/?spm_id_from=333.880.my_history.page.click)
+## Iv.使用封装版的Japanese cleaner,用该text[文件夹](https://github.com/Paraworks/vits_with_chatgpt-gpt3/tree/window/text)替换原本的text文件夹,然后按[教程](https://github.com/NaruseMioShirakana/JapaneseCleaner)，将cleaner文件夹解压至vits项目的路径下
+![Image text](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/onnx/moe/c4.png)
+
 ## IV.同linux一样创建虚拟环境后 
 ```sh
 git clone https://huggingface.co/Mahiruoshi/vits_with_chatbot
