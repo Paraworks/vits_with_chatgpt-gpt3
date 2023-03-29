@@ -1,4 +1,5 @@
-# 步骤1，启用前端应用，从[Live2DMascot](https://github.com/Arkueid/Live2DMascot)仓库下载后，修改config.json文件
+# 部署流程
+## I:启用前端应用，从[Live2DMascot](https://github.com/Arkueid/Live2DMascot)仓库下载后，修改config.json文件
 ```sh
 "ChatAPI" : 
 {
@@ -11,7 +12,7 @@
 		"Route" : "/chat"  //路径
 	},
 ```
-# 下一步：server端启动后端api程序(Windows也可以)
+# II：server端启动后端api程序(Windows也可以)
 ```sh
 #核心思路:服务器部署api，完成主要工作
 #Click Code && codespaces and start
