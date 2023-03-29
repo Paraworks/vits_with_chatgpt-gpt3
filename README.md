@@ -63,6 +63,5 @@ python main.py
 ![Image text](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/onnx/moe/p3.png)
 #如果需要
 seq = text_to_sequence(text, symbols=hps.symbols, cleaner_names=hps.data.text_cleaners)
-#如不需要，把 symbols=hps.symbols 删掉
-```
+
 # 由于openai将扩大对非官方api的打压力度，如以盈利为目的，建议采用官方的api key以及openai标准库
