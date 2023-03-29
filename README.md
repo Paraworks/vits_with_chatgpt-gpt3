@@ -16,9 +16,8 @@
 使用pyopenjtalk，如果如何安装cmake?:
 在Github自带的codespace或者windows下安装的Visual Studio Code，都可以下载插件![Image text](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/onnx/VSC.png)
 点击install就可以安装了
-![Image text](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/onnx/moe%202023_3_16%201_13_45.png)
+## 一键式部署流程
 ```sh
-#核心思路:服务器部署api，完成主要工作
 #Click Code && codespaces and start
 #Installing cmake and FFmpeg,showing FFmpeg,since cmake can be installed directly in the Extensions
 sudo apt update
