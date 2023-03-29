@@ -32,14 +32,14 @@ conda activate chatbot
 git clone https://huggingface.co/Mahiruoshi/vits_with_chatbot
 cd vits_with_chatbot
 pip install -r requirements.txt
-```
+
 # 控制面板兼启动文件
 python main.py
 # * Running on http://127.0.0.1:8080
 # * Running on http://172.16.5.4:8080
-#INFO:werkzeug:Press CTRL+C to quit
 #Running on local URL:  http://127.0.0.1:7860
 #端口号7860是面板，8080是api
+```
 # 面板说明
 ## 完成chatbot方式选择及vits模型加载
 ![Image text](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/onnx/moe/p2.png)
