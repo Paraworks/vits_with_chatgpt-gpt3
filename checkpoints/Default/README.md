@@ -1,1 +1,0 @@
-创建新的文件夹，将vits模型文件和配置文件以model.pth和conbfig.json重命名并放入其中
