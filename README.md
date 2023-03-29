@@ -14,7 +14,7 @@
 ```
 ## II:server端启动后端api程序(Windows也可以)
 使用pyopenjtalk，如果如何安装cmake?:
-在Github自带的codespace或者windows下安装的Visual Studio Code，都可以下载插件![Image text](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/onnx/VSC.png)
+在Github自带的codespace或者windows下安装的Visual Studio Code，都可以下载插件![Image text](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/onnx/moe/VSC.png)
 点击install就可以安装了
 ## Linux
 ```sh
@@ -29,8 +29,8 @@ conda create -n chatbot python=3.8
 conda init bash
 bash
 conda activate chatbot
-git clone https://huggingface.co/spaces/Mahiruoshi/Chatbot_with_vits
-cd vChatbot_with_vits
+git clone https://huggingface.co/Mahiruoshi/vits_with_chatbot
+cd vits_with_chatbot
 pip install -r requirements.txt
 #控制面板兼启动文件
 python main.py
@@ -39,8 +39,13 @@ python main.py
 #INFO:werkzeug:Press CTRL+C to quit
 #Running on local URL:  http://127.0.0.1:7860
 #端口号7860是面板，8080是api
-# 接口的具体展示，后者是chatgpt，也就是默认端
-```sh
+# 面板说明
+## 完成chatbot方式选择及vits模型加载
+![Image text](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/onnx/moe/p2.png)
+可供选择的方式: gpt3.5/gpt3的api，CHATGLM
+方法：将路径或者api key填写进文本框中
+## 测试api是否启动
+![Image text](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/onnx/moe/p3.png)
 # 对于 text_to_sequence相关错误
 ```sh
 #在推理中，可能出现symbols相关错误，这主要是由于不同text cleaner之间的冲突导致的
