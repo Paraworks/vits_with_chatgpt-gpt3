@@ -2,11 +2,7 @@ import logging
 logging.getLogger('numba').setLevel(logging.WARNING)
 logging.getLogger('matplotlib').setLevel(logging.WARNING)
 logging.getLogger('urllib3').setLevel(logging.WARNING)
-opj = input("是否启用pyopenjtalk?封装版无法保证非japanese cleaners推理日语时的质量(Y/N)")
-if opj == "N":
-    from TEXTS import text_to_sequence
-else:
-    from text import text_to_sequence
+from text import text_to_sequence
 import numpy as np
 from scipy.io import wavfile
 import torch
