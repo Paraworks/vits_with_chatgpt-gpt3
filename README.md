@@ -1,8 +1,5 @@
-## 2023/2/10更新 vits-onnx 一键式启动
-## 2023/2/17更新 弃用renpy [采用桌面应用版本](https://github.com/Arkueid/Live2DMascot)
-## 2023/3/3更新 接入官方的chatgpt
-## 2023/3/15更新 完全本地化，采用[清华ChatGLM-6B](https://github.com/THUDM/ChatGLM-6B)
-# 此分支为vits模型onnx导出版，[原版vits](https://github.com/Paraworks/vits_with_chatgpt-gpt3/tree/main)
+# 该分支旨在为搭建聊天api提供一个最基本的骨架，实际上就是在local_chat.py或api_launch.py中整合了vits的tts功能和chatbot的搭建
+# 要完整体验live2d桌宠聊天，你需要先安装好拥有合适接口的桌宠软件
 # 步骤1，启用前端应用，克隆[Live2DMascot](https://github.com/Arkueid/Live2DMascot)仓库后，修改config.json文件
 ```sh
 "ChatAPI" : 
@@ -16,7 +13,7 @@
 		"Route" : "/chat"  //路径
 	},
 ```
-# 下一步：server端启动后端api程序(Windows也可以)
+# 步骤2：server端启动后端api程序(Windows也可以)
 ## Combining chatgpt/gpt3&vits as api and launch it（Server suggested）
 ## 将你的onnx导出为onnx模型[colab版](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/onnx/onnx_export_colab.ipynb)
 [来源](https://gitee.com/ccdesue/vits_web_demo)
@@ -30,14 +27,16 @@
 # 如果只采用chatgpt则跳过此步
 ## IV.按照教程，将清华的[开源语音模型](https://github.com/THUDM/ChatGLM-6B)下载下来后全部放进moe文件夹中，[huggingface](https://huggingface.co/THUDM/chatglm-6b)
 最后你的moe文件夹应该长这样,纯vits只需model.onnx与config_v.json
+## 关于环境问题，建议protobuf==3.20.0，transformers>=4.26.1，否则按照反馈基本行不通。而我在pip list中列出的两个版本就是3.20和4.26.1
 ![Image text](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/onnx/moe%202023_3_16%201_13_45.png)
 ```sh
 cd moe
 pip install -r requirements.txt
 cd ..
-#默认最低配置，如有需要可以按照官方教程修改。为了防止炸显存，推荐tts端采用onnx的cpu推理
+#启动chatglm作为聊天方式，默认最低配置。为了防止炸显存，推荐tts端采用onnx的cpu推理
 python local_chat.py --ChatGLM path/to/dic_of_ChatGLM-6B
-#python api_launch.py --key your_openai_api_key --onnx_model path/to/model.onnx --cfg path/to/config_of_vits.json
+#启动gpt-3.5的api作为聊天方式(推荐)
+python api_launch.py --key your_openai_api_key --onnx_model path/to/model.onnx --cfg path/to/config_of_vits.json
 ```
 ```sh
 修改配置文件来更换模型
@@ -124,6 +123,7 @@ if __name__ == '__main__':
 ```
 ```sh
 #聊天机器人生成回复的代码
+#参考官方说明结合实际自行于local_chat.py 中修改
 tokenizer = AutoTokenizer.from_pretrained(args.ChatGLM, trust_remote_code=True)
 #8G GPU
 model = AutoModel.from_pretrained(args.ChatGLM, trust_remote_code=True).half().quantize(4).cuda()
@@ -199,6 +199,11 @@ seq = text_to_sequence
 seq = text_to_sequence(text, symbols=hps.symbols, cleaner_names=hps.data.text_cleaners)
 #如不需要，把 symbols=hps.symbols 删掉
 ```
+## 2023/2/10更新 vits-onnx 一键式启动
+## 2023/2/17更新 弃用renpy [采用桌面应用版本](https://github.com/Arkueid/Live2DMascot)
+## 2023/3/3更新 接入官方的chatgpt
+## 2023/3/15更新 完全本地化，采用[清华ChatGLM-6B](https://github.com/THUDM/ChatGLM-6B)
+# 此分支为vits模型onnx导出版，[原版vits](https://github.com/Paraworks/vits_with_chatgpt-gpt3/tree/main)
 # 已废弃：从release中下载前端，解压后直接运行
 删除 api_launch.py中的注释，恢复相关api
 ```sh
