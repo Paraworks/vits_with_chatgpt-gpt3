@@ -19,16 +19,14 @@
 [来源](https://gitee.com/ccdesue/vits_web_demo)
 [该仓库使用的模型(Onnx model example)](https://huggingface.co/Mahiruoshi/vits_onnx_model/tree/main)
 [替换text文件夹以适配不同模型(Change text folder)](https://github.com/Paraworks/vits_with_chatgpt-gpt3/tree/onnx/text)
-# 完全本地化,windows部署流程,建议30系以上N卡，或者cpu
+# ChatGLM,windows部署流程,建议30系以上N卡。ChatGLM可能需要C环境
 ## 安装[FFmpeg](https://zhuanlan.zhihu.com/p/118362010)并且添加环境变量
-## I.安装[Torch+gpu](https://blog.csdn.net/qq_44173699/article/details/126312680)(如需cpu推理则跳过)
+## I.安装[Torch+gpu](https://blog.csdn.net/qq_44173699/article/details/126312680)(也可在配置[chatglm](https://github.com/THUDM/ChatGLM-6B)的时候一并实现gpu推理)
 ## II.[cmake及pyopenjtalk安装](https://www.bilibili.com/video/BV13t4y1V7DV/?spm_id_from=333.880.my_history.page.click)
 ## III.下载[model.onnx](https://huggingface.co/Mahiruoshi/vits_onnx_model/tree/main)后放入moe文件夹
 # 如果只采用chatgpt则跳过此步
-## IV.按照教程，将清华的[开源语音模型](https://github.com/THUDM/ChatGLM-6B)下载下来后全部放进moe文件夹中，[huggingface](https://huggingface.co/THUDM/chatglm-6b)
-最后你的moe文件夹应该长这样,纯vits只需model.onnx与config_v.json
+## IV.按照教程，将清华的[开源语音模型](https://github.com/THUDM/ChatGLM-6B)下载下来后先执行一遍，确保能实现基本的聊天功能[huggingface](https://huggingface.co/THUDM/chatglm-6b)
 ## 关于环境问题，建议protobuf==3.20.0，transformers>=4.26.1，否则按照反馈基本行不通。而我在pip list中列出的两个版本就是3.20和4.26.1
-![Image text](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/onnx/moe%202023_3_16%201_13_45.png)
 ```sh
 cd moe
 pip install -r requirements.txt
