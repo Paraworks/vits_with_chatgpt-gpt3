@@ -21,7 +21,7 @@ inflect
 pydub
 eng_to_ipa
 onnxruntime
-protobuf>=3.19.5
+protobuf==3.20.0
 transformers>=4.26.1
 icetk
 cpm_kernels
