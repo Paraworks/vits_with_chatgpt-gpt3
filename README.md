@@ -41,6 +41,8 @@ python main.py
 #Running on local URL:  http://127.0.0.1:7860
 #端口号7860是面板，8080是api
 ```
+(较为复杂，建议参考另一个分支部署)如需使用chatglm,需提前部署好环境[在自己的环境下安装好依赖](https://github.com/THUDM/ChatGLM-6B)。建议protobuf==3.20.0，
+transformers>=4.26.1，否则会有奇怪报错
 ## Window
 ## I 安装[FFmpeg](https://zhuanlan.zhihu.com/p/118362010)并且添加环境变量
 ## II.安装[Torch+gpu](https://blog.csdn.net/qq_44173699/article/details/126312680)(如需cpu推理则跳过)
