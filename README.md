@@ -14,13 +14,10 @@
 	},
 ```
 ## II:server端启动后端api程序(Windows也可以)
-如需使用pyopenjtalk，则需要先安装好cmake。
-在Github自带的codespace或者windows下安装的Visual Studio Code，都可以下载插件![Image text](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/onnx/moe/VSC.png)
-点击install就可以安装了
+如需使用pyopenjtalk，则需要先安装好cmake, 结合自己的系统搜索相关安装教程
 ## Linux
 ```sh
-#Click Code && codespaces and start
-#Installing cmake and FFmpeg,showing FFmpeg,since cmake can be installed directly in the Extensions
+#Installing cmake and FFmpeg,showing FFmpeg
 sudo apt update
 sudo apt upgrade
 sudo apt install ffmpeg
