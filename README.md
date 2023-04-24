@@ -13,7 +13,7 @@
 		"Route" : "/chat"  //路径
 	},
 ```
-#合成日语时要安装pyopenjtalk或者编译好的日语cleaner文件(效果不一定好)，所以你完全可以选择忽视该模块的安装。
+# 合成日语时要安装pyopenjtalk或者编译好的日语cleaner文件(效果不一定好)，所以你完全可以选择忽视该模块的安装。
 在cleaner程序中，也就是text文件下的[cleaners.py](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/onnx/text/cleaners.py),注释掉所有的japanese模块，比如说:
 ```sh
 #第3行
