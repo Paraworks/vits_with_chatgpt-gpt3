@@ -14,6 +14,20 @@
 	},
 ```
 # 步骤2：server端启动后端api程序(Windows也可以)
+# 注意:合成日语时要安装pyopenjtalk或者编译好的日语cleaner文件(效果不一定好)，所以你完全可以选择忽视该模块的安装。
+在cleaner程序中，也就是text文件下的[cleaners.py](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/onnx/text/cleaners.py),注释掉所有的japanese模块，比如说:
+```sh
+#第3行
+from text.japanese import japanese_to_romaji_with_accent, japanese_to_ipa, japanese_to_ipa2, japanese_to_ipa3
+```
+在你所采用的config.json文件中，找到对应的cleaner，比如说zh_ja_mixture_cleaners,然后注释掉这一段
+```sh
+#第50行开始
+for japanese_text in japanese_texts:
+        cleaned_text = japanese_to_romaji_with_accent(
+            japanese_text[4:-4]).replace('ts', 'ʦ').replace('u', 'ɯ').replace('...', '…')
+        text = text.replace(japanese_text, cleaned_text+' ', 1)
+```
 ## Combining chatgpt/gpt3&vits as api and launch it（Server suggested）
 ## 将你的onnx导出为onnx模型[colab版](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/onnx/onnx_export_colab.ipynb)
 [来源](https://gitee.com/ccdesue/vits_web_demo)
