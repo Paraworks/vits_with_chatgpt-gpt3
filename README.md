@@ -20,7 +20,7 @@
 from text.japanese import japanese_to_romaji_with_accent, japanese_to_ipa, japanese_to_ipa2, japanese_to_ipa3
 ```
 在你所采用的config.json文件中，找到对应的cleaner，比如说zh_ja_mixture_cleaners,然后注释掉这一段
-``sh
+```sh
 #第50行开始
 for japanese_text in japanese_texts:
         cleaned_text = japanese_to_romaji_with_accent(
