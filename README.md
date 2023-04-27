@@ -13,6 +13,16 @@
 		"Route" : "/chat"  //路径
 	},
 ```
+## Window一键部署
+```sh
+#前置条件 已安装Anaconda
+conda create -n chatbot python=3.8
+conda activate chatbot
+git clone https://huggingface.co/spaces/Mahiruoshi/vits-chatbot
+cd vits-chatbot
+pip install -r requirements.txt
+python main.py
+```
 # 合成日语时要安装pyopenjtalk或者编译好的日语cleaner文件(效果不一定好)，所以你完全可以选择忽视该模块的安装。
 在cleaner程序中，也就是text文件下的[cleaners.py](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/onnx/text/cleaners.py),注释掉所有的japanese模块，比如说:
 ```sh
@@ -54,7 +64,7 @@ python main.py
 ```
 (较为复杂，建议参考另一个分支部署)如需使用chatglm,需提前部署好环境[在自己的环境下安装好依赖](https://github.com/THUDM/ChatGLM-6B)。建议protobuf==3.20.0，
 transformers>=4.26.1，否则会有奇怪报错
-## Window
+## Window详细说明
 ## I 安装[FFmpeg](https://zhuanlan.zhihu.com/p/118362010)并且添加环境变量
 ## II.安装[Torch+gpu](https://blog.csdn.net/qq_44173699/article/details/126312680)(如需cpu推理则跳过)
 ## III.[cmake及pyopenjtalk安装(可略过)](https://www.bilibili.com/video/BV13t4y1V7DV/?spm_id_from=333.880.my_history.page.click)
