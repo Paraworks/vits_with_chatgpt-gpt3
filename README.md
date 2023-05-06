@@ -39,11 +39,12 @@ for japanese_text in japanese_texts:
 ## II.[cmake及pyopenjtalk安装](https://www.bilibili.com/video/BV13t4y1V7DV/?spm_id_from=333.880.my_history.page.click)
 ## III.下载[model.onnx](https://huggingface.co/Mahiruoshi/vits_onnx_model/tree/main)后放入moe文件夹
 # 如果只采用chatgpt则跳过此步
-## IV.按照教程，将清华的[开源语音模型](https://github.com/THUDM/ChatGLM-6B)下载下来后先执行一遍，确保能实现基本的聊天功能[huggingface](https://huggingface.co/THUDM/chatglm-6b)
+## IV.按照教程，在你的环境下部署好清华的[开源语音模型](https://github.com/THUDM/ChatGLM-6B)，确保能实现基本的聊天功能[huggingface](https://huggingface.co/THUDM/chatglm-6b)
 ## 关于环境问题，建议protobuf==3.20.0，transformers>=4.26.1，否则按照反馈基本行不通。而我在pip list中列出的两个版本就是3.20和4.26.1
 ```sh
-cd moe
+git clone https://github.com/Paraworks/vits_with_chatgpt-gpt3
 pip install -r requirements.txt
+#这不包括chatglm的环境
 cd ..
 #启动chatglm作为聊天方式，默认最低配置。为了防止炸显存，推荐tts端采用onnx的cpu推理
 python local_chat.py --ChatGLM path/to/dic_of_ChatGLM-6B
