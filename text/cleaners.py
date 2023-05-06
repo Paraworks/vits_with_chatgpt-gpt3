@@ -1,7 +1,21 @@
 import re
-from text.english import english_to_lazy_ipa, english_to_ipa2, english_to_lazy_ipa2
-from text.japanese import clean_japanese, japanese_to_romaji_with_accent, japanese_to_ipa, japanese_to_ipa2, japanese_to_ipa3
+import re
+from unidecode import unidecode
+from unidecode import unidecode
+import ctypes
 from text.mandarin import number_to_chinese, chinese_to_bopomofo, latin_to_bopomofo, chinese_to_romaji, chinese_to_lazy_ipa, chinese_to_ipa, chinese_to_ipa2
+try:
+    dll = ctypes.cdll.LoadLibrary('cleaners/JapaneseCleaner.dll')
+    dll.CreateOjt.restype = ctypes.c_uint64 
+    dll.PluginMain.restype = ctypes.c_uint64 
+    floder = ctypes.create_unicode_buffer("cleaners")
+    dll.CreateOjt(floder)
+except:
+    pass
+def clean_japanese(text):
+    input_wchar_pointer = ctypes.create_unicode_buffer(text)
+    result = ctypes.wstring_at(dll.PluginMain(input_wchar_pointer))
+    return result
 
 def none_cleaner(text):
     return text
@@ -30,7 +44,7 @@ def zh_ja_mixture_cleaners(text):
         cleaned_text = chinese_to_romaji(chinese_text[4:-4])
         text = text.replace(chinese_text, cleaned_text+' ', 1)
     for japanese_text in japanese_texts:
-        cleaned_text = japanese_to_romaji_with_accent(
+        cleaned_text = japanese_cleaners(
             japanese_text[4:-4]).replace('ts', 'ʦ').replace('u', 'ɯ').replace('...', '…')
         text = text.replace(japanese_text, cleaned_text+' ', 1)
     text = text[:-1]
@@ -41,22 +55,42 @@ def zh_ja_mixture_cleaners(text):
 def cjke_cleaners(text):
     chinese_texts = re.findall(r'\[ZH\].*?\[ZH\]', text)
     japanese_texts = re.findall(r'\[JA\].*?\[JA\]', text)
-    english_texts = re.findall(r'\[EN\].*?\[EN\]', text)
     for chinese_text in chinese_texts:
         cleaned_text = chinese_to_lazy_ipa(chinese_text[4:-4])
         cleaned_text = cleaned_text.replace(
             'ʧ', 'tʃ').replace('ʦ', 'ts').replace('ɥan', 'ɥæn')
         text = text.replace(chinese_text, cleaned_text+' ', 1)
     for japanese_text in japanese_texts:
-        cleaned_text = clean_japanese(japanese_text[4:-4])
-        cleaned_text = cleaned_text.replace('ʧ', 'tʃ').replace(
-            'ʦ', 'ts').replace('ɥan', 'ɥæn').replace('ʥ', 'dz')
+        cleaned_text = japanese_cleaners(japanese_text[4:-4])
         text = text.replace(japanese_text, cleaned_text+' ', 1)
-    for english_text in english_texts:
-        cleaned_text = english_to_ipa2(english_text[4:-4])
-        cleaned_text = cleaned_text.replace('ɑ', 'a').replace(
-            'ɔ', 'o').replace('ɛ', 'e').replace('ɪ', 'i').replace('ʊ', 'u')
-        text = text.replace(english_text, cleaned_text+' ', 1)
+    text = text[:-1]
+    if re.match(r'[^\.,!\?\-…~]', text[-1]):
+        text += '.'
+    return text
+
+def cjks_cleaners(text):
+    chinese_texts = re.findall(r'\[ZH\].*?\[ZH\]', text)
+    japanese_texts = re.findall(r'\[JA\].*?\[JA\]', text)
+    for chinese_text in chinese_texts:
+        cleaned_text = chinese_to_lazy_ipa(chinese_text[4:-4])
+        text = text.replace(chinese_text, cleaned_text+' ', 1)
+    for japanese_text in japanese_texts:
+        cleaned_text = japanese_cleaners(japanese_text[4:-4])
+        text = text.replace(japanese_text, cleaned_text+' ', 1)
+    text = text[:-1]
+    if re.match(r'[^\.,!\?\-…~]', text[-1]):
+        text += '.'
+    return text
+
+def cjke_cleaners2(text):
+    chinese_texts = re.findall(r'\[ZH\].*?\[ZH\]', text)
+    japanese_texts = re.findall(r'\[JA\].*?\[JA\]', text)
+    for chinese_text in chinese_texts:
+        cleaned_text = chinese_to_lazy_ipa(chinese_text[4:-4])
+        text = text.replace(chinese_text, cleaned_text+' ', 1)
+    for japanese_text in japanese_texts:
+        cleaned_text = japanese_cleaners(japanese_text[4:-4])
+        text = text.replace(japanese_text, cleaned_text+' ', 1)
     text = text[:-1]
     if re.match(r'[^\.,!\?\-…~]', text[-1]):
         text += '.'
