@@ -107,7 +107,6 @@ def gpt3_chat(text):
 
 @app.route('/chat')
 def text_api():
-    text = gpt3_chat(request.args.get('Text',''))
     text = infer(text)
     with open('/temp.wav','rb') as bit:
         wav_bytes = bit.read()
