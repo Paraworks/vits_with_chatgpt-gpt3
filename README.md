@@ -16,7 +16,7 @@
 # 启动器方式2：live2dviewer
 # 选择1：server端启动后端api程序(Windows也可以)
 ## Combining chatgpt/gpt3&vits as api and launch it（Server suggested）
-将[inference_api.py](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/main/inference_api.py)/[inference_api_single_speaker.py](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/main/inference_api_single_speaker)丢入你的vits项目或moegoe项目中
+将[inference_api.py](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/main/inference_api.py)/[inference_api_single_speaker.py](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/main/inference_api_single_speaker.py)丢入你的vits项目或moegoe项目中
 ```sh
 cd vits
 mkdir moe
