@@ -16,22 +16,22 @@ from data_utils import TextAudioLoader, TextAudioCollate, TextAudioSpeakerLoader
 from models import SynthesizerTrn
 from text.symbols import symbols
 from text import text_to_sequence
-
+from scipy import signal
 from scipy.io.wavfile import write
 from flask import Flask, request
 import openai
 #from pyChatGPT import ChatGPT
-
+import soundfile as sf
 #设定存储各种数据的目录，方便查看，默认/moe/
 app = Flask(__name__)
 mutex = threading.Lock()
 def get_args():
     parser = argparse.ArgumentParser(description='inference')
-    parser.add_argument('--model', default = './moe/model.pth')
-    parser.add_argument('--cfg', default="./moe/config.json")
+    parser.add_argument('--model', default = 'path/to/model.pth')
+    parser.add_argument('--cfg', default="path/to/config.json")
     parser.add_argument('--outdir', default="./moe",
                         help='ouput directory')
-    parser.add_argument('--key',default = "see openai key",
+    parser.add_argument('--key',default = "your openai key",
                         help='see openai')
     args = parser.parse_args()
     return args
@@ -45,7 +45,6 @@ net_g_ms = SynthesizerTrn(
     len(symbols),
     hps_ms.data.filter_length // 2 + 1,
     hps_ms.train.segment_size // hps_ms.data.hop_length,
-    n_speakers=hps_ms.data.n_speakers,
     **hps_ms.model).to(dev)
 _ = net_g_ms.eval()
 #导入模型文件
@@ -69,18 +68,17 @@ def infer(text):
   #api = ChatGPT(session_token)
   #response_from_chatgpt = api.send_message(text)
   text = gpt3_chat(text)
-  text = f"[JA]{text}[JA]" if is_japanese(text) else f"[ZH]{text}[ZH]"
+  #text = f"[JA]{text}[JA]" if is_japanese(text) else f"[ZH]{text}[ZH]"
   speaker_id = 1
   stn_tst = get_text(text, hps_ms)
   with torch.no_grad():
       x_tst = stn_tst.unsqueeze(0).to(dev)
       x_tst_lengths = torch.LongTensor([stn_tst.size(0)]).to(dev)
       sid = torch.LongTensor([speaker_id]).to(dev)
-      audio = net_g_ms.infer(x_tst, x_tst_lengths, sid=sid, noise_scale=0.667, noise_scale_w=0.8, length_scale=1)[0][0,0].data.cpu().float().numpy()
+      audio = net_g_ms.infer(x_tst, x_tst_lengths, sid=speaker_id, noise_scale=0.667, noise_scale_w=0.8, length_scale=1)[0][0,0].data.cpu().float().numpy()
     #  ipd.display(ipd.Audio(audio, rate=hps_ms.data.sampling_rate))
-      write(args.outdir + '/temp1.wav',22050,audio)
-      cmd = 'ffmpeg -y -i ' +  args.outdir + '/temp1.wav' + ' -ar 44100 '+ args.outdir + '/temp2.wav'
-      os.system(cmd)
+      resampled_audio_data = signal.resample(audio, len(audio) * 2)
+      sf.write('temp.wav', resampled_audio_data, 44100, 'PCM_24')
       return text
 
 #记得修改indentity
@@ -109,9 +107,9 @@ def gpt3_chat(text):
 
 @app.route('/chat')
 def text_api():
-    text = gpt3_chat(request.args.get('Text',''))
+    text = request.args.get('Text','')
     text = infer(text)
-    with open(args.outdir +'/temp2.wav','rb') as bit:
+    with open('temp.wav','rb') as bit:
         wav_bytes = bit.read()
     headers = {
         'Content-Type': 'audio/wav',
