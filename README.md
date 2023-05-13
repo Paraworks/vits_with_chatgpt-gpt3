@@ -1,6 +1,6 @@
 ## 2023/2/10更新 vits-onnx 一键式启动
 ## 2023/2/17更新 弃用renpy [采用桌宠版本](https://github.com/Arkueid/Live2DMascot)
-# live2d启动器发生1：克隆[Live2DMascot](https://github.com/Arkueid/Live2DMascot)仓库后，修改config.json文件
+# live2d启动器：克隆[Live2DMascot](https://github.com/Arkueid/Live2DMascot)仓库后，修改config.json文件
 ```sh
 "ChatAPI" : 
 {
@@ -21,6 +21,8 @@
 cd vits
 mkdir moe
 python inference_api.py --model path/to/vits_model.pth --cfg path/to/vits_config.json
+#Single speaker
+pythoon inference_api_single_speaker.py --model path/to/vits_model.pth --cfg path/to/vits_config.json
 ```
 # 选择2：[绿皮思路chat](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/main/inference_ork.py)
 支持从外部启动任何正在运行的live2d模型，比如说修改点击事件的对应音频来实现。只需在你的vits项目中加入inference_ork.py这个小文件，然后启动它。注意，需要你能够在自己的windows上部署vits项目，推荐安装好cuda，[教程
