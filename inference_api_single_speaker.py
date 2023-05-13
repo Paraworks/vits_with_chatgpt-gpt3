@@ -21,17 +21,17 @@ from scipy.io.wavfile import write
 from flask import Flask, request
 import openai
 #from pyChatGPT import ChatGPT
-
+import soundfile as sf
 #设定存储各种数据的目录，方便查看，默认/moe/
 app = Flask(__name__)
 mutex = threading.Lock()
 def get_args():
     parser = argparse.ArgumentParser(description='inference')
-    parser.add_argument('--model', default = './moe/model.pth')
-    parser.add_argument('--cfg', default="./moe/config.json")
-    parser.add_argument('--outdir', default="./moe",
+    parser.add_argument('--model', default = 'path/to/model.pth')
+    parser.add_argument('--cfg', default="path/to/config.json")
+    parser.add_argument('--outdir', default="path/to/savingDir",
                         help='ouput directory')
-    parser.add_argument('--key',default = "see openai key",
+    parser.add_argument('--key',default = "your openai key",
                         help='see openai')
     args = parser.parse_args()
     return args
@@ -77,9 +77,8 @@ def infer(text):
       sid = torch.LongTensor([speaker_id]).to(dev)
       audio = net_g_ms.infer(x_tst, x_tst_lengths, noise_scale=0.667, noise_scale_w=0.8, length_scale=1)[0][0,0].data.cpu().float().numpy()
     #  ipd.display(ipd.Audio(audio, rate=hps_ms.data.sampling_rate))
-      write(args.outdir + '/temp1.wav',22050,audio)
-      cmd = 'ffmpeg -y -i ' +  args.outdir + '/temp1.wav' + ' -ar 44100 '+ args.outdir + '/temp2.wav'
-      os.system(cmd)
+      resampled_audio_data = signal.resample(audio, len(audio) * 2)
+      sf.write('temp.wav', resampled_audio_data, 44100, 'PCM_24')
       return text
 
 #记得修改indentity
@@ -110,7 +109,7 @@ def gpt3_chat(text):
 def text_api():
     text = gpt3_chat(request.args.get('Text',''))
     text = infer(text)
-    with open(args.outdir +'/temp2.wav','rb') as bit:
+    with open('/temp.wav','rb') as bit:
         wav_bytes = bit.read()
     headers = {
         'Content-Type': 'audio/wav',
