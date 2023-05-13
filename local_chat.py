@@ -1,118 +1,120 @@
-import argparse
-from text import text_to_sequence
-import numpy as np
-from scipy.io import wavfile
-import torch
+#需要额外安装的包：、openai pyChatGPT
+import matplotlib.pyplot as plt
+import IPython.display as ipd
+import threading
+import os
 import json
+import math
+import torch
+from torch import nn
+from torch.nn import functional as F
+from torch.utils.data import DataLoader
+import argparse
 import commons
 import utils
-import sys
-import pathlib
+from data_utils import TextAudioLoader, TextAudioCollate, TextAudioSpeakerLoader, TextAudioSpeakerCollate
+from models import SynthesizerTrn
+from text.symbols import symbols
+from text import text_to_sequence
+from scipy import signal
+from scipy.io.wavfile import write
 from flask import Flask, request
-import threading
-import onnxruntime as ort
-import time
-from pydub import AudioSegment
-import io
-import os
-from transformers import AutoTokenizer, AutoModel
+import openai
+#from pyChatGPT import ChatGPT
+import soundfile as sf
+#设定存储各种数据的目录，方便查看，默认/moe/
 app = Flask(__name__)
 mutex = threading.Lock()
 def get_args():
     parser = argparse.ArgumentParser(description='inference')
-    parser.add_argument('--onnx_model', default = './moe/model.onnx')
-    parser.add_argument('--cfg', default="./moe/config_v.json")
+    parser.add_argument('--model', default = 'path/to/model.pth')
+    parser.add_argument('--cfg', default="path/to/config.json")
     parser.add_argument('--outdir', default="./moe",
-                        help='ouput folder')
-    parser.add_argument('--ChatGLM',default = "./moe",
-                        help='https://github.com/THUDM/ChatGLM-6B')
+                        help='ouput directory')
+    parser.add_argument('--key',default = "your openai key",
+                        help='see openai')
     args = parser.parse_args()
     return args
-
-def to_numpy(tensor: torch.Tensor):
-    return tensor.detach().cpu().numpy() if tensor.requires_grad \
-        else tensor.detach().numpy()
-
-def get_symbols_from_json(path):
-    import os
-    assert os.path.isfile(path)
-    with open(path, 'r') as f:
-        data = json.load(f)
-    return data['symbols']
-
 args = get_args()
-symbols = get_symbols_from_json(args.cfg)
-phone_dict = {
-        symbol: i for i, symbol in enumerate(symbols)
-    }
-hps = utils.get_hparams_from_file(args.cfg)
-ort_sess = ort.InferenceSession(args.onnx_model)
-outdir = args.outdir
+#设置gpu推理
+dev = torch.device("cuda:0")
+#导入config文件
+hps_ms = utils.get_hparams_from_file(args.cfg)
+#加载多人模型
+net_g_ms = SynthesizerTrn(
+    len(symbols),
+    hps_ms.data.filter_length // 2 + 1,
+    hps_ms.train.segment_size // hps_ms.data.hop_length,
+    **hps_ms.model).to(dev)
+_ = net_g_ms.eval()
+#导入模型文件
+_ = utils.load_checkpoint(args.model, net_g_ms, None)
+#语言检测
 def is_japanese(string):
         for ch in string:
             if ord(ch) > 0x3040 and ord(ch) < 0x30FF:
                 return True
         return False 
-
-#注意:对于不同的cleaner，需要自行修改symbols
-def infer(text):
-    #选择你想要的角色
-    sid = 3
-    text = f"[JA]{text}[JA]" if is_japanese(text) else f"[ZH]{text}[ZH]"
-    seq = text_to_sequence(text, symbols=hps.symbols, cleaner_names=hps.data.text_cleaners)
-    #seq = text_to_sequence(text, cleaner_names=hps.data.text_cleaners)
+def get_text(text, hps):
+    text_norm = text_to_sequence(text, hps.data.text_cleaners)
     if hps.data.add_blank:
-        seq = commons.intersperse(seq, 0)
-    with torch.no_grad():
-        x = np.array([seq], dtype=np.int64)
-        x_len = np.array([x.shape[1]], dtype=np.int64)
-        sid = np.array([sid], dtype=np.int64)
-        scales = np.array([0.667, 0.8, 1], dtype=np.float32)
-        scales.resize(1, 3)
-        ort_inputs = {
-                    'input': x,
-                    'input_lengths': x_len,
-                    'scales': scales,
-                    'sid': sid
-                }
-        t1 = time.time()
-        audio = np.squeeze(ort_sess.run(None, ort_inputs))
-        audio *= 32767.0 / max(0.01, np.max(np.abs(audio))) * 0.6
-        audio = np.clip(audio, -32767.0, 32767.0)
-        t2 = time.time()
-        spending_time = "推理时间："+str(t2-t1)+"s" 
-        print(spending_time)
-        bytes_wav = bytes()
-        byte_io = io.BytesIO(bytes_wav)
-        wavfile.write(outdir + '/temp1.wav',hps.data.sampling_rate, audio.astype(np.int16))
-        cmd = 'ffmpeg -y -i ' +  outdir + '/temp1.wav' + ' -ar 44100 '+ outdir + '/temp2.wav'
-        os.system(cmd)
-    return text
-tokenizer = AutoTokenizer.from_pretrained(args.ChatGLM, trust_remote_code=True)
-#8G GPU
-model = AutoModel.from_pretrained(args.ChatGLM, trust_remote_code=True).half().quantize(4).cuda()
-history = []
+        text_norm = commons.intersperse(text_norm, 0)
+    text_norm = torch.LongTensor(text_norm)
+    return text_norm
+#可以自己写聊天机器人代码替换68行
+def infer(text):
+  #CHATGPT抓取
+  #session_token = '参考https://www.youtube.com/watch?v=TdNSj_qgdFk'
+  #api = ChatGPT(session_token)
+  #response_from_chatgpt = api.send_message(text)
+  text = gpt3_chat(text)
+  #text = f"[JA]{text}[JA]" if is_japanese(text) else f"[ZH]{text}[ZH]"
+  speaker_id = 1
+  stn_tst = get_text(text, hps_ms)
+  with torch.no_grad():
+      x_tst = stn_tst.unsqueeze(0).to(dev)
+      x_tst_lengths = torch.LongTensor([stn_tst.size(0)]).to(dev)
+      sid = torch.LongTensor([speaker_id]).to(dev)
+      audio = net_g_ms.infer(x_tst, x_tst_lengths, noise_scale=0.667, noise_scale_w=0.8, length_scale=1)[0][0,0].data.cpu().float().numpy()
+    #  ipd.display(ipd.Audio(audio, rate=hps_ms.data.sampling_rate))
+      resampled_audio_data = signal.resample(audio, len(audio) * 2)
+      sf.write('temp.wav', resampled_audio_data, 44100, 'PCM_24')
+      return text
+
+#记得修改indentity
+def gpt3_chat(text):
+  call_name = "宁宁"
+  openai.api_key = args.key
+  identity = ""
+  start_sequence = '\n'+str(call_name)+':'
+  restart_sequence = "\nYou: "
+  if 1 == 1:
+     prompt0 = text #当期prompt
+  if text == 'quit':
+     return prompt0
+  prompt = identity + prompt0 + start_sequence
+  response = openai.Completion.create(
+    model="text-davinci-003",
+    prompt=prompt,
+    temperature=0.5,
+    max_tokens=1000,
+    top_p=1.0,
+    frequency_penalty=0.5,
+    presence_penalty=0.0,
+    stop=["\nYou:"]
+  )
+  return response['choices'][0]['text'].strip()
+
 @app.route('/chat')
 def text_api():
-    global history
-    message = request.args.get('Text','')
-    t1 = time.time()
-    if message == 'clear':
-      history = []
-    else:
-      response, new_history = model.chat(tokenizer, message, history)
-      response = response.replace(" ",'').replace("\n",'.')
-      text = infer(response)
-      text = text.replace('[JA]','').replace('[ZH]','')
-      with open(outdir +'/temp2.wav','rb') as bit:
-          wav_bytes = bit.read()
-      headers = {
-            'Content-Type': 'audio/wav',
-            'Text': text.encode('utf-8')}
-      history = new_history
-      t2 = time.time()
-      spending_time = "总耗时："+str(t2-t1)+"s" 
-      print(spending_time)
-      return wav_bytes, 200, headers
+    text = request.args.get('Text','')
+    text = infer(text)
+    with open('temp.wav','rb') as bit:
+        wav_bytes = bit.read()
+    headers = {
+        'Content-Type': 'audio/wav',
+        'Text': text.encode('utf-8')
+    }
+    return wav_bytes, 200, headers
 if __name__ == '__main__':
    app.run("0.0.0.0", 8080) 
