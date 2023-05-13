@@ -22,6 +22,13 @@ cd vits
 python inference_api.py --model path/to/vits_model.pth --cfg path/to/vits_config.json --key your_openai_api_key
 #Single speaker
 python inference_api_single_speaker.py --model path/to/vits_model.pth --cfg path/to/vits_config.json --key your_openai_api_key
+#修改: 从68行开始，如果该模型用到了类似中日双语cleaner，恢复
+#text = f"[JA]{text}[JA]" if is_japanese(text) else f"[ZH]{text}[ZH]"
+#选择speaker
+speaker_id = 1
+#可自行添加chatbot
+#此处用到的 
+text = gpt3_chat(text)
 ```
 # 选择2：[绿皮思路chat](https://github.com/Paraworks/vits_with_chatgpt-gpt3/blob/main/inference_ork.py)
 支持从外部启动任何正在运行的live2d模型，比如说修改点击事件的对应音频来实现。只需在你的vits项目中加入inference_ork.py这个小文件，然后启动它。注意，需要你能够在自己的windows上部署vits项目，推荐安装好cuda，[教程
